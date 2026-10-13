@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "X622 XApp API 2.1 through 2.15 fixed-memory profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "name", "version"],
+  "properties": {
+    "launcher": {
+      "type": "object", "additionalProperties": false, "required": ["names"],
+      "properties": {
+        "names": {"type": "object", "additionalProperties": false, "required": ["en"], "properties": {
+          "en": {"type": "string", "minLength": 1, "maxLength": 47, "pattern": "^[ -~]+$"},
+          "zh": {"type": "string", "description": "At most 47 UTF-8 bytes; glyph subset embedded automatically."}
+        }},
+        "icon": {"type": "string", "description": "Square PNG path relative to app.json; converted offline to native 32x32 RGB565+A8."},
+        "font": {"type": "string", "description": "Licensed TTF/TTC/OTF path relative to app.json. Required for non-ASCII names; converted at native 20 px, 4 bpp."}
+      }
+    },
+    "id": {"type": "string", "pattern": "^[a-z0-9_-]{1,23}$"},
+    "name": {"type": "string", "minLength": 1, "description": "1..47 UTF-8 bytes; byte length is checked by the packager."},
+    "version": {"type": "string", "minLength": 1, "description": "1..15 UTF-8 bytes; byte length is checked by the packager."},
+    "api_major": {"const": 2, "default": 2},
+    "api_minor": {"enum": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], "default": 1},
+    "permissions": {"type": "integer", "minimum": 0, "maximum": 4294967295, "default": 0, "description": "Public permission mask 0x3F7F; ESPNOW (8192) requires API 2.6 and <=48 KiB linear memory. AUDIO_CAPTURE (1024) requires API 2.7. Unknown bits and import/permission mismatches are rejected by release validation."},
+    "linear_memory": {
+      "type": "integer",
+      "const": 0,
+      "description": "WAMR host heap, not physical linear memory. Bare C profile requires zero.",
+      "default": 0
+    },
+    "stack": {"type": "integer", "minimum": 4096, "maximum": 8192, "default": 4096},
+    "event_queue": {"type": "integer", "minimum": 1, "maximum": 16, "default": 8},
+    "tick_ms": {"type": "integer", "minimum": 10, "maximum": 1000, "default": 33}
+  }
+}

@@ -1,0 +1,12 @@
+# Five Robot XApp
+
+> Public developer documentation and API 2.15 SDK for Five Robot, ESP32-C3, 240x240. Build a .xapp, not an ESP-IDF ROM.
+
+- [Agent contract](https://github.com/Yoriuml/five-robot-app-docs/blob/main/AGENTS.md)
+- [Quickstart](https://github.com/Yoriuml/five-robot-app-docs/blob/main/docs/quickstart.md)
+- [API reference](https://github.com/Yoriuml/five-robot-app-docs/blob/main/docs/api-reference.md)
+- [Actual SDK](https://github.com/Yoriuml/five-robot-app-docs/blob/main/sdk/xapp/x622_xapp.h)
+- [Example](https://github.com/Yoriuml/five-robot-app-docs/tree/main/examples/hello)
+- [Constraints](https://github.com/Yoriuml/five-robot-app-docs/blob/main/docs/memory-profile.md)
+
+Read README.md and AGENTS.md first. Never invent API symbols. Provide an explicit exit action. Build using the bundled tool; record runtime_tested=false and hardware_tested=false unless those tests actually ran.

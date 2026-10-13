@@ -1,0 +1,12 @@
+{
+  "id": "hello-five",
+  "name": "Hello Five",
+  "version": "1.0.0",
+  "api_major": 2,
+  "api_minor": 15,
+  "permissions": 3,
+  "linear_memory": 0,
+  "stack": 4096,
+  "event_queue": 8,
+  "tick_ms": 100
+}

@@ -1,0 +1,25 @@
+{
+  "api": "2.15",
+  "source_commit": "9409b6b4ec09af23fe87cb3046e2b44a3497e200",
+  "files": {
+    "sdk/xapp/x622_audio.h": "4ed31c1497e0bbe18955d8378aa048c688d73247955146c5df4682f08826e848",
+    "sdk/xapp/x622_audio_stream.h": "b206684f21cb8966e3181493e7d82134205db0ac97efd745883541f0f1ea88c1",
+    "sdk/xapp/x622_ble.h": "67a719a63b5f3366165e0d75834768eee1ac41fdbbded0a3770696161d75d59d",
+    "sdk/xapp/x622_ble_gatt.h": "b2b5210f3492d9c61d01925e53a3bef6aaa2e747693b993b6b641dae24020ba3",
+    "sdk/xapp/x622_crypto.h": "e167d4b3190f5cac3aa054b10fe23849ab513f42f5db6a5bf7186f69d6ce8389",
+    "sdk/xapp/x622_datagram.h": "b11f7d6c67a6e6568debd2baf36fd0cf7540fb69462944e8f4599ed23ea16eeb",
+    "sdk/xapp/x622_gateway.h": "7a863a203b7adca87c5421df0eac66ff8211f44908e89648acf7305d6caf16d1",
+    "sdk/xapp/x622_http.h": "90b32561b9a4e0e9c3577dff2706bc8a563744f65e12efdfaa766aa982628589",
+    "sdk/xapp/x622_http_ex.h": "2f215d63824bf6bd67906562993a6cbac0a68979a3f10a028ce9e3679341634a",
+    "sdk/xapp/x622_raster.h": "a1e98da9ac709b8ec8861c3674d8a369981157d4f4e83c48406665f836149d96",
+    "sdk/xapp/x622_signal.h": "5d0c9ff319d282429ee5e9524e0fb40746d0b708ba986a194391cb2c6ce5bc0a",
+    "sdk/xapp/x622_tracker.h": "67def04c1f905250003ad71805165d73c92555e01b288219274059c1ce7a0738",
+    "sdk/xapp/x622_ui.h": "b4a2c492c17ac220d01daa80f9ad19574c96498d01d233fd7e59ceb98f00ea64",
+    "sdk/xapp/x622_xapp.h": "c9211624a88c171540d716291efe176fe27b20d0affd64429a1578ee01ab01f2",
+    "tools/xapp/xapp_tool.py": "6a9d2db396802005c46ff3bc61618dcf9d200dd43f1fd911dfe0c57b233ce4d0",
+    "tools/xapp/wasm_profile.py": "dc005b1db0f2e5cb4619c04f73f2e2c8e0182b5d9f1d518879e1e4f6836f9be8",
+    "tools/xapp/presentation.py": "6a594007ab80b243bb1fd6810748064d93d30d0d1fc7132616172ef76882d75d",
+    "tools/xapp/manifest.schema.json": "b379b348b4afbdf9f06370d5f7884b99ad7f5d803cb3032f8a6ce22761da0a81"
+  },
+  "scope": "Public XApp SDK declarations and package validation tools only"
+}
