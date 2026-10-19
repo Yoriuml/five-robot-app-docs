@@ -1,57 +1,55 @@
-# 从零构建一个 XApp
+# 从零构建 XApp
 
-## 1. 工具
+先下载完整 SDK，固定 sdk-release.json 中的发行版。可以 GitHub/Gitee clone，或从[官方索引](https://site.flashbot5.com/developer/v1/index.json)下载 sdk.zip 并检查 checksums.json 的哈希。只有模板 ZIP 不够，头文件和工具也要同版本。
 
-准备 Python 3.10+、[Zig 0.15.2](https://ziglang.org/download/)、[WABT 1.0.41](https://github.com/WebAssembly/wabt/releases/tag/1.0.41)。使用官方发布文件，并核对下载来源。按你的系统选择可执行文件；这里不自动下载或安装工具。
+## 准备工具
 
-最小示例只用 Python 标准库。需要制作中文启动器名称或 PNG 图标时，再安装 `Pillow` 和 `fonttools`，并准备有合法使用权限的字体。
-
-```sh
-git clone https://github.com/Yoriuml/five-robot-app-docs.git
-cd five-robot-app-docs
-```
-
-## 2. 构建示例
-
-把命令中的工具路径改成自己的路径。命令可写在一行，不依赖 PowerShell / Bash 的续行符。
+Python 3.10+，Zig 0.15.2，WABT 1.0.41。四套示例均无需 Python 第三方包。
 
 ```sh
-python tools/build.py --app examples/hello --zig /path/to/zig --wabt /path/to/wabt/bin -o dist/hello.xapp
-python tools/xapp/xapp_tool.py inspect dist/hello.xapp
+python tools/bootstrap.py
+python tools/doctor.py
 ```
 
-Windows 示例：`--zig C:/tools/zig/zig.exe --wabt C:/tools/wabt/bin`。macOS/Linux 示例不带 `.exe`。如果你的 Python 命令为 `python3`，替换命令前缀。
+bootstrap 按 toolchain.lock.json 选择官方归档、验证 SHA256、Python 解压到 .tools 并确认可执行文件和版本。已下载归档可用 `--archive-dir <目录>` 离线准备。
+下载不通时按[诊断说明](troubleshooting.md)换镜像/Invoke-WebRequest，不反复盲试。
 
-得到 `dist/hello.xapp` 与 `dist/hello.validation.json`。报告包含包大小、SHA-256、内存布局与检查结果。工具必须找到 `wasm-validate` 与 `wasm2wat`，校验失败不覆盖旧的输出包。
+已有工具时设置 XAPP_ZIG 为编译器路径、XAPP_WABT 为 WABT bin 目录，也可将工具加入 PATH。
+构建命令支持显式参数 `--zig <可执行文件> --wabt <bin目录>`；不依赖任何作者工作站目录。
 
-## 3. 运行仓库检查
+## 创建与构建
 
 ```sh
-python tools/check_docs.py
-python -m unittest discover -s tests -p "test_*.py"
-python tests/check_package.py dist/hello.xapp
+python tools/create_app.py --template native-ui --id my-app --name "My App" --output dist/my-app
+python tools/build.py --app dist/my-app -o dist/my-app.xapp
+python tools/validate.py dist/my-app.xapp
+python tools/xapp/xapp_tool.py inspect dist/my-app.xapp
 ```
 
-示例按键的原生桩测试（不会访问设备）：
+模板可选 hello、native-ui、resources-zh、http。创建器拒绝覆盖已有目录。
+修改生成目录内 main.c/app.json；资源放 resources/。多文件 C 工程用重复 `--source` 指定。
+普通桌面 C++ 的构造器、异常和标准库不能直接搬进 freestanding 应用。
+
+构建失败返回非零，并保留旧输出；不要把旧 .xapp 当本次成功。成功产生包和同名 .validation.json，含 SHA256、最终 imports/exports、静态内存、工具版本和检查范围。
+清单 required_exports/required_imports 可防止事件或退出接口被链接消除，只要求本应用确实需要的符号。
+validate 从最终包重新解析并运行 WABT，不相信现成报告；inspect 只查看包/ABI，不代替语义验证。
+
+## SDK 自检
 
 ```sh
-zig cc -std=c11 -I sdk/xapp tests/hello_test.c -o dist/hello-test
+python tools/test_sdk.py
 ```
 
-再运行生成的 `dist/hello-test`（Windows 为 `dist/hello-test.exe`）。这里的桩仅验证示例状态与退出，不是宿主渲染器模拟。
+这会检查文档和快照、Python 负例、四模板真实编译、独立包验证及原生 C 状态桩测试。
+输出 dist/template-check/。交互测试覆盖启动松手、空闲不重绘、极值/重复操作、网络失败/超时与退出。
+原生桩不模拟设备渲染、TLS、音频或 C3 性能。Windows 可用 `py -3`，macOS/Linux 通常用 `python3` 替换命令前缀。
 
-## 4. 安装到设备
+## 安装与验收
 
-用桌面 Chrome/Edge 打开[安装工作台](https://site.flashbot5.cn/install)。设备进入「应用 → 应用安装 → 有线安装」，用数据线连接，选择 `.xapp` 后由你确认安装。
-支持本机无线安装时，也可进入「无线安装」，按设备显示的地址用浏览器上传文件。
+桌面 Chrome/Edge 打开[安装工作台](https://site.flashbot5.com/install)。设备进入“应用 → 应用安装 → 有线安装”，数据线连接后，由用户选择安装 .xapp。
+无线安装按设备显示的地址操作。不要由 AI 自动连接、擦除或烧录。
 
-示例操作：上/下选择 Hello 与 Exit APP；短按确认执行当前项。选择 Exit APP 后确认退出。示例不用 K2，也不依赖隐藏的系统退出手势。
+hello：上下选择并中键确认 Exit；native-ui：上下/中键切换，长按中键 2 秒退出；中文资源：下键选择 Exit、中键退出；HTTP：中键退出。
+K2 不是系统退出快捷键；必须先释放启动键。
 
-## 5. 改成自己的应用
-
-复制 `examples/hello`，修改 app.json 的 id、name、version；编辑 main.c。额外资源放 `resources/`。多 C 文件项目可使用 `--source` 多次指定文件。此构建工具按 C 应用配置；C++ 需要另行处理导出、构造器、异常与 freestanding 约束，不应直接套用普通桌面 C++ 项目。
-
-## 校验边界
-
-构建执行 Zig、WABT 指令语义、固定内存/导入白名单/权限/API、包 CRC32 与 SHA-256 检查。报告中的 `runtime_tested` 和 `hardware_tested` 默认 false：本仓库没有私有 WAMR 宿主与设备驱动模拟。
-真实安装、启动、退出和功能测试由开发者在设备上完成。共享作品前记录[验收清单](testing.md)，不要只凭打包成功声称功能通过。
+按[验收清单](testing.md)记录实际设备启动、连按、进入退出、网络与声音、最坏资源和性能。未经验证不得将 runtime_tested/hardware_tested 改为 true。

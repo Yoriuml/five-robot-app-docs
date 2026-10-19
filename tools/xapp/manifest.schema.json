@@ -5,6 +5,8 @@
   "additionalProperties": false,
   "required": ["id", "name", "version"],
   "properties": {
+    "required_imports": {"type": "array", "uniqueItems": true, "items": {"type": "string"}, "description": "SDK build gate only: imports that must survive final WASM linking. Not part of the device package header."},
+    "required_exports": {"type": "array", "uniqueItems": true, "items": {"type": "string"}, "description": "SDK build gate only: lifecycle callbacks that must survive final WASM linking."},
     "launcher": {
       "type": "object", "additionalProperties": false, "required": ["names"],
       "properties": {

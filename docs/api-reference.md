@@ -49,7 +49,7 @@
 | AUDIO_PLAYBACK | 512 | 网络/本地音频；`media_play` 另需 Wi-Fi+HTTP，总计608 |
 | AUDIO_CAPTURE | 1024 | 2.7麦克风PCM采集；声明不等于自动启动采音 |
 | POWER_CONTROL | 2048 | 请求系统正常关机 |
-| SERIAL | 4096 | 2.3 UART0业务收发 |
+| SERIAL | 4096 | 2.3 应用业务串口；物理通道以目标固件与头文件为准 |
 | ESPNOW | 8192 | 2.6明文ESP-NOW数据报，与普通Wi-Fi/BLE/安装器互斥 |
 
 未定义的位不可使用。权限通过不保证资源申请成功。只要声明 Wi-Fi且不声明BLE/ESP-NOW，
@@ -221,10 +221,8 @@ audio state：0空闲、1排队、2播放、3失败。
 | `x622_serial_write(data,bytes)` | 单次1—768 B，有界同步写，返回写入数，需处理短写 |
 
 BLE参数、队列、认证和绑定隔离见[2.3说明](api-extensions.md)。当前不是BLE Central接口。
-业务串口与安装器共用 CH343P/UART0（TX=GPIO21、RX=GPIO20，不同时间使用）；
-业务会话固定 115200/8N1，系统安装页使用921600并在退出时恢复115200；
-APP 不能改引脚或波特率。业务会话暂停普通日志，
-主机仍需忽略会话启动前残留的日志，关闭占用端口的 monitor。
+当前主头文件声明 APP 业务串口使用原生 USB Serial/JTAG CDC，不使用 K2/K3 引脚。
+APP 没有修改引脚或波特率的 API；安装器传输协议是独立流程，不可把它的串口设置用于推断 APP 通道。
 
 ## 10. 错误码速查
 

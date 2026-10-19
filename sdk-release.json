@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "sdk_release": "2026.10.19.1",
+  "git_tag": "sdk-2026.10.19.1",
+  "api_version": "2.15",
+  "package_format": 1,
+  "repositories": {
+    "github": "https://github.com/Yoriuml/five-robot-app-docs",
+    "gitee": "https://gitee.com/yorium/five-robot-app-docs"
+  },
+  "developer_index": "https://site.flashbot5.com/developer/v1/index.json",
+  "python_minimum": "3.10",
+  "templates": ["hello", "native-ui", "resources-zh", "http"]
+}

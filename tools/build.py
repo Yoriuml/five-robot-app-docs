@@ -15,6 +15,7 @@ from types import SimpleNamespace
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools/xapp'))
 import xapp_tool
+from toolchain import locate, versions
 
 def run(args):
     result = subprocess.run([str(x) for x in args], capture_output=True, text=True,
@@ -27,13 +28,18 @@ def build(args):
     app = args.app.resolve()
     manifest_path = app / 'app.json'
     manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
-    extension = '.exe' if os.name == 'nt' else ''
-    validator = args.wabt.resolve() / ('wasm-validate' + extension)
-    disassembler = args.wabt.resolve() / ('wasm2wat' + extension)
-    compiler = args.zig.resolve()
-    for tool in [compiler, validator, disassembler]:
-        if not tool.is_file(): raise ValueError('Tool not found: ' + str(tool))
+    compiler, validator, disassembler = locate(args.zig, args.wabt)
+    tool_versions = versions(compiler, validator)
     sources = args.source or [app / 'main.c']
+    required_imports = manifest.get('required_imports', [])
+    required_exports = manifest.get('required_exports', [])
+    for label, required in [('imports', required_imports), ('exports', required_exports)]:
+        if not isinstance(required, list) or any(not isinstance(x, str) for x in required):
+            raise ValueError('required_' + label + ' must be a list of names')
+    allowed_exports = {'xapp_init', 'xapp_tick', 'xapp_event', 'xapp_shutdown', 'xapp_startup_ready'}
+    if set(required_exports) - allowed_exports:
+        raise ValueError('required_exports must name public lifecycle callbacks')
+    export_flags = ['-Wl,--export=' + name for name in sorted(set(required_exports) | {'xapp_init', 'xapp_tick'})]
     with tempfile.TemporaryDirectory(prefix='five-xapp-') as directory:
         temp = Path(directory)
         wasm = temp / 'app.wasm'
@@ -42,7 +48,8 @@ def build(args):
              '-Wl,--no-entry', '-Wl,--strip-all', '-Wl,-z,stack-size=' + str(args.c_stack),
              '-Wl,--initial-memory=65536', '-Wl,--max-memory=65536',
              '-Wl,--export=__data_end', '-Wl,--export=__heap_base',
-             '-Wl,--export=xapp_init', '-Wl,--export=xapp_tick', '-o', wasm, *sources])
+             *export_flags,
+             '-o', wasm, *sources])
         run([validator, '--disable-simd', '--disable-multi-value', '--disable-reference-types', wasm])
         wat = run([disassembler, wasm])
         if re.search(r'\bmemory\.(?:size|grow)\b', wat):
@@ -53,12 +60,17 @@ def build(args):
             resources=resources if resources.is_dir() else None, output=package))
         blob = package.read_bytes()
         info = xapp_tool.verify_bytes(blob)
+        for label, required, actual in [('imports', required_imports, info['profile']['imports']),
+                                        ('exports', required_exports, info['profile']['exports'])]:
+            missing = set(required) - set(actual)
+            if missing:
+                raise ValueError('Final WASM missing required ' + label + ': ' + ', '.join(sorted(missing)))
         report = {'id': info['app_id'], 'version': info['version'],
             'api': str(info['api_major']) + '.' + str(info['api_minor']),
             'package_bytes': len(blob), 'package_sha256': hashlib.sha256(blob).hexdigest(),
             'wasm_sha256': hashlib.sha256(wasm.read_bytes()).hexdigest(),
-            'profile': info['profile'], 'compiler': run([compiler, 'version']),
-            'wabt_version': run([validator, '--version']),
+            'profile': info['profile'], 'compiler': tool_versions['zig'],
+            'wabt_version': tool_versions['wabt'],
             'wabt_semantic_validation': True, 'abi_and_package_validation': True,
             'runtime_tested': False, 'hardware_tested': False,
             'test_scope': 'Static ABI, fixed-memory profile, WABT semantics and package integrity. No private WAMR host or hardware execution.'}
@@ -73,8 +85,8 @@ def build(args):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--app', type=Path, required=True)
-    parser.add_argument('--zig', type=Path, required=True)
-    parser.add_argument('--wabt', type=Path, required=True)
+    parser.add_argument('--zig', type=Path, help='Or XAPP_ZIG / PATH / tools/bootstrap.py')
+    parser.add_argument('--wabt', type=Path, help='WABT bin directory; or XAPP_WABT / PATH')
     parser.add_argument('--source', type=Path, action='append', help='Optional C source; repeat for multiple files')
     parser.add_argument('--c-stack', type=int, choices=[4096, 8192], default=4096)
     parser.add_argument('-o', '--output', type=Path, required=True)

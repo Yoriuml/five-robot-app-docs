@@ -22,6 +22,10 @@
 
 - 先确认本机 Python、Zig 0.15.2、WABT 1.0.41 的真实路径；不要使用作者工作站路径。
 - 用 tools/build.py 构建并生成报告，再执行 tools/xapp/xapp_tool.py inspect。
+- 首先运行 tools/doctor.py；缺工具用 tools/bootstrap.py 按锁文件下载并核验。完整流程和下载失败处理见 docs/ai-workflow.md。
+- 清单 required_exports/required_imports 约束最终链接结果。事件回调应保留导出，退出流程应实际调用 exit；不要要求所有应用导入无用 random。
+- 构建后 tools/validate.py 独立验证语义；用最坏分支测试命令数量/文本/资源/内存极值与可到达的退出路径。
+- 头文件无法读取时换完整 SDK ZIP、镜像、发行文件 JSON 或 contents base64；仍失败就报告缺失，不重建猜测的 SDK 头文件。
 - 不绕过失败的 ABI、权限、内存或语义检查，不把 validation.json 的 false 改成 true。
 - 自己运行过的检查写明命令与结果。没有工具时交付源码并说明阻塞，不谎称已出安装包。
 - 交付源码、清单、.xapp、报告、文件 SHA-256、安装方式和实机验收清单。不要自动连接、擦除或烧录用户设备。

@@ -1,46 +1,61 @@
-# 五号机器人 · App 开发文档
+# 五号机器人 XApp SDK
 
-把这个仓库链接交给你的 AI 编程助手，就可以从真实接口和可构建示例开始开发五号机器人 App。
+公开、可独立构建的完整开发包：**SDK 2026.10.19.1 · API 2.15 · 包格式 1**。设备 ESP32-C3，240×240。
 
-**仓库链接：https://github.com/Yoriuml/five-robot-app-docs**
+[GitHub](https://github.com/Yoriuml/five-robot-app-docs) · [Gitee](https://gitee.com/yorium/five-robot-app-docs) · [官方版本索引和 SDK 下载](https://site.flashbot5.com/developer/v1/index.json) · [安装工作台](https://site.flashbot5.com/install)
 
-本仓库面向 **XApp API 2.15**，设备为 ESP32-C3 / 240 × 240 屏幕。XApp 是受限 WebAssembly 应用，安装文件为 `.xapp`。
-不需要获取或构建私有主系统源码。网站教程：[五号机器人教程中心](https://site.flashbot5.cn/guides)。
+固定同一标签 `sdk-2026.10.19.1`，避免跨发行版拼接头文件、工具和示例。仓库镜像网络不通时，下载官方完整 SDK ZIP 并验哈希。
 
-## 给 AI 的阅读顺序
+## 开始
 
-1. [AGENTS.md](AGENTS.md)：任务边界、输出要求和禁止编造接口。
-2. [快速开始](docs/quickstart.md)：工具、命令、独立构建与安装。
-3. [开发规则](docs/development-rules.md)：按键、退出、错误处理、资源与测试。
-4. [API 参考](docs/api-reference.md) + [真实 SDK 头文件](sdk/xapp/x622_xapp.h)。
-5. 按功能查 [API 扩展导航](docs/api-extensions.md)、[内存约束](docs/memory-profile.md)、[应用清单](docs/manifest.md)。
+Python 3.10+；最小开发与四套示例只需要 Python 标准库。
 
-## 复制这段提示词
-
-```text
-请阅读 https://github.com/Yoriuml/five-robot-app-docs，先看 README.md、AGENTS.md 和 docs/quickstart.md。
-我想开发的功能是：【描述功能、界面、按键、声音或联网需求】。
-请先核对 SDK 支持的 API 和最小权限，再实现一个 XApp。
-提供源码、app.json、实际构建出的 .xapp、校验报告、退出方式和实机验收步骤。
-不要编造 API，不要修改主系统或分区，不要自动烧录设备。
-如果不能运行构建或实机测试，请明确说明，不要把生成代码当作验证通过。
+```sh
+python tools/bootstrap.py
+python tools/doctor.py
+python tools/create_app.py --template native-ui --id my-app --name "My App" --output dist/my-app
+python tools/build.py --app dist/my-app -o dist/my-app.xapp
+python tools/validate.py dist/my-app.xapp
 ```
 
-只支持聊天、不能访问仓库的模型：下载本仓库 ZIP，把需要的文档和头文件交给它。只有具备编译工具的环境才能生成并验证 `.xapp`。
+已有 Zig 0.15.2 / WABT 1.0.41 时跳过下载，工具支持 PATH、环境变量或 `--zig` / `--wabt`。下载与环境问题见[失败诊断](docs/troubleshooting.md)。
 
-## 仓库里有什么
+## 给 AI
 
-| 目录 | 用途 |
+复制[完整提示词](docs/ai-workflow.md)，补上自己的需求。助手应先读 [AGENTS.md](AGENTS.md)、[快速开始](docs/quickstart.md)、[开发规则](docs/development-rules.md)，再用 [api.json](api.json) 查符号并核对 [真实头文件](sdk/xapp/x622_xapp.h)。
+
+```text
+请使用五号机器人 XApp SDK 实现：【我的功能和 UI 需求】。
+资料入口 https://site.flashbot5.com/developer/v1/index.json
+备用 https://github.com/Yoriuml/five-robot-app-docs 或 https://gitee.com/yorium/five-robot-app-docs
+按 SDK 的 docs/ai-workflow.md 完成下载校验、环境自检、模板开发、构建和独立验收。
+交付真实源码、app.json、.xapp、报告、SHA256 和按键/安装说明。
+不要编造 API，不改设备固件/分区，不自动烧录；静态、主机、真机结果分开报告。
+```
+
+## 开发包内容
+
+| 内容 | 用途 |
 | --- | --- |
-| `docs/` | 面向开发者与模型的公开技术文档 |
-| `sdk/xapp/` | API 2.15 的实际 C 声明；保留 `x622_*` ABI 名称 |
-| `examples/hello/` | Hello / Exit 最小应用，不依赖私有仓库 |
-| `tools/build.py` | Zig + WABT 构建、固定内存检查与打包 |
-| `tools/xapp/` | 与设备协议配套的包格式和 ABI 校验器 |
-| `tests/` | 示例交互与损坏包/权限/API 回归 |
-| `llms.txt` | 给模型的简短导航 |
-| `SDK-SNAPSHOT.json` | SDK 来源版本与文件 SHA-256 |
+| [14 份头文件](sdk/xapp/x622_xapp.h) | 完整公开 API 2.15 声明和结构，保持真实 ABI |
+| [基础交互](examples/hello/README.md) | 启动键松手、菜单、明确退出、绘制失败处理 |
+| [原生动画 UI](examples/native-ui/README.md) | 稳定节点、缓存预算、原生插值、退出释放 |
+| [中文资源](examples/resources-zh/README.md) | 原创中文笔画底图、包内资源、条带读取 |
+| [异步联网](examples/http/README.md) | Wi-Fi/HTTP 状态、错误、超时、可退出 |
+| [API 索引](api.json) | 实际导入名/签名/权限/最低 API、生命周期和限制 |
+| [工具锁文件](toolchain.lock.json) | 官方归档、固定版本、SHA256、支持平台 |
+| `tools/doctor.py` / `bootstrap.py` | 环境诊断与可校验的工具准备 |
+| `tools/create_app.py` / `build.py` / `validate.py` | 创建应用、编译、打包、独立语义/ABI 验收 |
+| `tools/test_sdk.py` / `tests/` | 所有模板实编译与主机状态/失败路径测试 |
+| [发行规范](docs/releases.md) / `tools/release.py` | 冻结文件白名单、可重复 ZIP、校验清单 |
+| [SDK-SNAPSHOT.json](SDK-SNAPSHOT.json) | 头文件来源与公开工具文件指纹 |
 
-构建工具提供静态 ABI、WABT 语义与包校验。**未包含私有 WAMR 宿主模拟器**，报告会明确记录运行时与实机测试状态。安装后仍需在设备上验证；社区审核与设备目录发布是另外的步骤。
+还有 [API 手册](docs/api-reference.md)、[扩展导航](docs/api-extensions.md)、[内存约束](docs/memory-profile.md)、[清单格式](docs/manifest.md)、[验收要求](docs/testing.md)。
 
-本仓库不包含主系统实现、网站后端、部署配置、OTA 签名密钥、管理员资料或账号数据。原生 ESP-IDF ROM 是另一条开发路线，不能把 `.bin` 改名成 `.xapp`。
+运行 `python tools/test_sdk.py` 完整检查。构建报告包含最终 WASM 的 imports/exports；清单可要求必须保留的回调和 API，避免事件被链接删除。无需导入没有使用的 random。
+
+本 SDK 包含全部公开声明、构建和静态验收工具；编译器按锁文件单独下载，不把数百 MB 的工具二进制塞入 Git。中文启动器/字体转换才需要可选 Pillow/fontTools 和已获授权字体。
+
+XApp 是 freestanding C/C++ → wasm32，安装包为 `.xapp`；不运行 ESP-IDF、Python、JS，也不能把 `.bin` 改名当应用。
+静态与主机桩测试不执行真实设备服务，报告的 runtime_tested/hardware_tested 保持 false，真机验收须单独记录。
+不含私有固件、驱动/宿主模拟器、网站后端、部署配置、账号数据或 OTA 密钥。

@@ -1,0 +1,7 @@
+{
+  "id": "http-demo", "name": "Async HTTP", "version": "1.0.0",
+  "api_major": 2, "api_minor": 15, "permissions": 99,
+  "linear_memory": 0, "stack": 4096, "event_queue": 8, "tick_ms": 100,
+  "required_exports": ["xapp_init", "xapp_tick", "xapp_event", "xapp_shutdown"],
+  "required_imports": ["input_state", "exit", "wifi_start", "wifi_stop", "http_request", "http_poll"]
+}

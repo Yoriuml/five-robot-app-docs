@@ -1,12 +1,16 @@
-# Five Robot XApp
+# Five Robot XApp SDK
 
-> Public developer documentation and API 2.15 SDK for Five Robot, ESP32-C3, 240x240. Build a .xapp, not an ESP-IDF ROM.
+SDK release 2026.10.19.1; API 2.15; package format 1. Freestanding C/C++ -> wasm32 -> .xapp; 240x240 ESP32-C3.
 
-- [Agent contract](https://github.com/Yoriuml/five-robot-app-docs/blob/main/AGENTS.md)
-- [Quickstart](https://github.com/Yoriuml/five-robot-app-docs/blob/main/docs/quickstart.md)
-- [API reference](https://github.com/Yoriuml/five-robot-app-docs/blob/main/docs/api-reference.md)
-- [Actual SDK](https://github.com/Yoriuml/five-robot-app-docs/blob/main/sdk/xapp/x622_xapp.h)
-- [Example](https://github.com/Yoriuml/five-robot-app-docs/tree/main/examples/hello)
-- [Constraints](https://github.com/Yoriuml/five-robot-app-docs/blob/main/docs/memory-profile.md)
+Start: https://site.flashbot5.com/developer/v1/index.json
+GitHub: https://github.com/Yoriuml/five-robot-app-docs
+Gitee: https://gitee.com/yorium/five-robot-app-docs
+Pin the same tag on both mirrors. Verify sdk.zip SHA256 before extracting. Never reconstruct unreadable headers.
 
-Read README.md and AGENTS.md first. Never invent API symbols. Provide an explicit exit action. Build using the bundled tool; record runtime_tested=false and hardware_tested=false unless those tests actually ran.
+Read README.md, AGENTS.md, docs/ai-workflow.md, docs/quickstart.md, docs/development-rules.md, then real sdk/xapp/*.h.
+api.json lists verified names, signatures, permissions and import version gates. Header comments define structures/ownership/units/quotas.
+Run tools/doctor.py; tools/bootstrap.py installs checksum-pinned official tool archives. Generate with tools/create_app.py; build with tools/build.py; independently validate with tools/validate.py.
+Test final callback exports and necessary imports, reachable exit and worst-case limits. Unused random is not required.
+Headers unavailable: use complete ZIP, mirror, versioned file JSON or GitHub contents base64. If still unavailable, report the precise gap instead of inventing APIs.
+No firmware/API/partition changes, credentials in source, WASI/malloc/threads or automatic flashing.
+Static/host/runtime/hardware results must be separate. No device service simulator is bundled.

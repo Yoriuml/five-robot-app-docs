@@ -1,1 +1,8 @@
 * text=auto eol=lf
+*.rgb565 -text
+*.a4 -text
+*.png -text
+*.wasm -text
+*.xapp -text
+*.ttf -text
+*.pcm -text

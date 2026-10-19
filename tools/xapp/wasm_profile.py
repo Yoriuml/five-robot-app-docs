@@ -57,7 +57,8 @@ IMPORTS = {
     "media_levels": ("ii", "i", 512),
 }
 EXPORTS = {"xapp_init": ("", ""), "xapp_tick": ("I", ""),
-           "xapp_event": ("iiiii", ""), "xapp_shutdown": ("", "")}
+           "xapp_event": ("iiiii", ""), "xapp_shutdown": ("", ""),
+           "xapp_startup_ready": ("", "i")}
 
 
 class Reader:
@@ -222,4 +223,5 @@ def check(wasm: bytes, permissions: int, host_heap: int = 0, stack: int = 4096) 
             raise ValueError("truncated function body")
     code.done()
     return {"static_bytes": heap_base, "physical_linear_bytes": (heap_base + 4095) & ~4095,
-            "c_stack_bytes": c_stack, "wasm_stack_bytes": stack, "imports": imports}
+            "c_stack_bytes": c_stack, "wasm_stack_bytes": stack, "imports": imports,
+            "exports": sorted(name for name, (kind, _) in exports.items() if kind == 0)}

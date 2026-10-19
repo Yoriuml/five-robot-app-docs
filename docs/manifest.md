@@ -23,3 +23,8 @@ Schema 位于 [manifest.schema.json](../tools/xapp/manifest.schema.json)。Schem
 
 可选 `launcher` 包含英文/中文名称、方形 PNG 图标、字体路径。中文名必须有你有权使用的 TTF/TTC/OTF，生成器做原生大小的字形子集；不要把私有字体、下载缓存或无权分发的资源直接提交仓库。
 SDK 常量 `X622_XAPP_API_MINOR=15` 表示头文件版本，不会自动修改 app.json；两者由开发者保持一致。
+# 构建验收附加字段
+
+本 SDK 另支持 `required_exports`、`required_imports` 字符串数组，只约束最终 WASM 的链接结果，不改变设备包头或 XAPP API。
+例如使用事件和退出的应用声明 `required_exports: ["xapp_event"]`、`required_imports: ["exit"]`。
+这些字段不是证明功能正确的替代品，仍需交互与失败路径测试；不要求未使用的 random。

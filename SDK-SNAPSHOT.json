@@ -17,9 +17,11 @@
     "sdk/xapp/x622_ui.h": "b4a2c492c17ac220d01daa80f9ad19574c96498d01d233fd7e59ceb98f00ea64",
     "sdk/xapp/x622_xapp.h": "c9211624a88c171540d716291efe176fe27b20d0affd64429a1578ee01ab01f2",
     "tools/xapp/xapp_tool.py": "6a9d2db396802005c46ff3bc61618dcf9d200dd43f1fd911dfe0c57b233ce4d0",
-    "tools/xapp/wasm_profile.py": "dc005b1db0f2e5cb4619c04f73f2e2c8e0182b5d9f1d518879e1e4f6836f9be8",
+    "tools/xapp/wasm_profile.py": "f96f758402ced6e6f00d0984194fb18f68c4062f2e3815e9f4cac1df01dac54e",
     "tools/xapp/presentation.py": "6a594007ab80b243bb1fd6810748064d93d30d0d1fc7132616172ef76882d75d",
-    "tools/xapp/manifest.schema.json": "b379b348b4afbdf9f06370d5f7884b99ad7f5d803cb3032f8a6ce22761da0a81"
+    "tools/xapp/manifest.schema.json": "c581edca1ecd081473d78a64b813dff6652837bfc326bbc30ebb1ca0d8960151"
   },
-  "scope": "Public XApp SDK declarations and package validation tools only"
+  "scope": "All public XApp declarations plus public packaging/validation tools; no device or private host implementation",
+  "sdk_release": "2026.10.19.1",
+  "public_tool_notes": "Public build/validation workflow extended in this SDK release; device headers remain unchanged."
 }

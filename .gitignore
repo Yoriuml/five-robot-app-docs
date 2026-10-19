@@ -3,4 +3,5 @@ dist/
 __pycache__/
 *.pyc
 .venv/
+.tools/
 .DS_Store

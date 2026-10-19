@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "sources": [
+    "https://ziglang.org/download/index.json",
+    "https://api.github.com/repos/WebAssembly/wabt/releases/tags/1.0.41"
+  ],
+  "platforms": {
+    "windows-x64": {
+      "zig": {
+        "version": "0.15.2",
+        "url": "https://ziglang.org/download/0.15.2/zig-x86_64-windows-0.15.2.zip",
+        "sha256": "3a0ed1e8799a2f8ce2a6e6290a9ff22e6906f8227865911fb7ddedc3cc14cb0c"
+      },
+      "wabt": {
+        "version": "1.0.41",
+        "url": "https://github.com/WebAssembly/wabt/releases/download/1.0.41/wabt-1.0.41-windows-x64.tar.gz",
+        "sha256": "37285ec7244384ffd382841f93fd23335aae846c92016a132d765c60f27a2f31"
+      }
+    },
+    "linux-x64": {
+      "zig": {
+        "version": "0.15.2",
+        "url": "https://ziglang.org/download/0.15.2/zig-x86_64-linux-0.15.2.tar.xz",
+        "sha256": "02aa270f183da276e5b5920b1dac44a63f1a49e55050ebde3aecc9eb82f93239"
+      },
+      "wabt": {
+        "version": "1.0.41",
+        "url": "https://github.com/WebAssembly/wabt/releases/download/1.0.41/wabt-1.0.41-linux-x64.tar.gz",
+        "sha256": "83f8122e924745fcd70636e3594bc01c4c47f2d4c8f3c63b5d70d3f83a482677"
+      }
+    },
+    "linux-arm64": {
+      "zig": {
+        "version": "0.15.2",
+        "url": "https://ziglang.org/download/0.15.2/zig-aarch64-linux-0.15.2.tar.xz",
+        "sha256": "958ed7d1e00d0ea76590d27666efbf7a932281b3d7ba0c6b01b0ff26498f667f"
+      },
+      "wabt": {
+        "version": "1.0.41",
+        "url": "https://github.com/WebAssembly/wabt/releases/download/1.0.41/wabt-1.0.41-linux-arm64.tar.gz",
+        "sha256": "5e35416ee8725dc7cc0572e4392a8117cbf008b0e34c0db65c75506b0299cdbf"
+      }
+    },
+    "macos-arm64": {
+      "zig": {
+        "version": "0.15.2",
+        "url": "https://ziglang.org/download/0.15.2/zig-aarch64-macos-0.15.2.tar.xz",
+        "sha256": "3cc2bab367e185cdfb27501c4b30b1b0653c28d9f73df8dc91488e66ece5fa6b"
+      },
+      "wabt": {
+        "version": "1.0.41",
+        "url": "https://github.com/WebAssembly/wabt/releases/download/1.0.41/wabt-1.0.41-macos-arm64.tar.gz",
+        "sha256": "e5269d6bbe05dfeb179e4f21111b3a641d6ccaa38b0b21d472ae5c65f8c4ff5d"
+      }
+    }
+  }
+}
