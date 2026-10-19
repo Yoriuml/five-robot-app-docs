@@ -1,6 +1,6 @@
 # Five Robot XApp SDK
 
-SDK release 2026.10.19.1; API 2.15; package format 1. Freestanding C/C++ -> wasm32 -> .xapp; 240x240 ESP32-C3.
+SDK release 2026.10.19.2; API 2.15; package format 1. Freestanding C/C++ -> wasm32 -> .xapp; 240x240 ESP32-C3.
 
 Start: https://site.flashbot5.com/developer/v1/index.json
 GitHub: https://github.com/Yoriuml/five-robot-app-docs

@@ -5,9 +5,11 @@ import sys
 import tempfile
 import unittest
 import zipfile
+from unittest.mock import patch
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'tools'))
+import toolchain
 from bootstrap import extract, member_path
 from create_app import create
 from generate_api import generate, minimum_minor
@@ -40,6 +42,16 @@ def module(*, imported='exit', import_type=0, event_type=2, memory=b'\x01\x01\x0
 
 
 class PublicSDK(unittest.TestCase):
+    def test_discovery_ignores_same_named_directory(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory)
+            zig=root/'.tools/zig/archive/zig'
+            zig.parent.mkdir(parents=True)
+            zig.write_bytes(b'executable placeholder')
+            with patch.object(toolchain,'ROOT',root):
+                found=toolchain.find_in_tools('zig')
+                self.assertEqual(found,zig)
+
     def test_api_is_complete_and_current(self):
         api=generate()
         self.assertEqual(json.loads((ROOT/'api.json').read_text(encoding='utf-8')),api)

@@ -8,11 +8,15 @@ ROOT = Path(__file__).resolve().parents[1]
 VERSIONS = {'zig': '0.15.2', 'wabt': '1.0.41'}
 
 
+def find_in_tools(name):
+    return next((p for p in (ROOT / '.tools').glob('**/' + name) if p.is_file()), None)
+
+
 def locate(zig=None, wabt=None):
     suffix = '.exe' if os.name == 'nt' else ''
     zig = zig or os.environ.get('XAPP_ZIG') or shutil.which('zig')
     if not zig:
-        zig = next((ROOT / '.tools').glob('**/zig' + suffix), None)
+        zig = find_in_tools('zig' + suffix)
     if not zig:
         raise ValueError('Missing Zig/WABT. Run python tools/bootstrap.py, or set '
                          'XAPP_ZIG (executable) and XAPP_WABT (bin directory). See docs/troubleshooting.md')
@@ -29,7 +33,7 @@ def locate_wabt(wabt=None):
     wabt = wabt or os.environ.get('XAPP_WABT')
     if not wabt:
         validator = shutil.which('wasm-validate')
-        validator = validator or next((ROOT / '.tools').glob('**/wasm-validate' + suffix), None)
+        validator = validator or find_in_tools('wasm-validate' + suffix)
         wabt = Path(validator).parent if validator else None
     if not wabt:
         raise ValueError('Missing WABT. Run tools/bootstrap.py or set XAPP_WABT to its bin directory.')
