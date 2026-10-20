@@ -218,11 +218,11 @@ def command_pack(args: argparse.Namespace) -> None:
     verify_bytes(output)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_bytes(output)
-    print(f"wrote {args.output} ({len(output)} bytes, wasm={len(wasm)}, resources={len(resources)})")
+    print(f"wrote {ascii(str(args.output))} ({len(output)} bytes, wasm={len(wasm)}, resources={len(resources)})")
 
 
 def command_inspect(args: argparse.Namespace) -> None:
-    print(json.dumps(verify_bytes(args.package.read_bytes()), ensure_ascii=False, indent=2))
+    print(json.dumps(verify_bytes(args.package.read_bytes()), ensure_ascii=True, indent=2))
 
 
 def main() -> int:

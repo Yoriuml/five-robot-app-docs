@@ -66,7 +66,7 @@ def main():
     with zipfile.ZipFile(output/'sdk.zip') as bundle:
         assert bundle.testzip() is None
         assert {n:digest(bundle.read(n)) for n in bundle.namelist()}=={n:digest(d) for n,d in files.items()}
-    print(json.dumps(ready,ensure_ascii=False,indent=2))
+    print(json.dumps(ready,ensure_ascii=True,indent=2))
 
 
 if __name__=='__main__':

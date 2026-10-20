@@ -20,7 +20,7 @@ from toolchain import ROOT, check_version, locate_zig, locate_wabt
 
 
 def emit(stage, **fields):
-    print(json.dumps({'stage': stage, **fields}, ensure_ascii=False), flush=True)
+    print(json.dumps({'stage': stage, **fields}, ensure_ascii=True), flush=True)
 
 
 def member_path(name):

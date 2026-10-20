@@ -93,7 +93,7 @@ def build(args):
         args.output.write_bytes(blob)
         report_path.write_text(json.dumps(report, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
         print(json.dumps({'package': str(args.output), 'bytes': len(blob),
-                          'sha256': report['package_sha256'], 'report': str(report_path)}, ensure_ascii=False))
+                          'sha256': report['package_sha256'], 'report': str(report_path)}, ensure_ascii=True))
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)

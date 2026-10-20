@@ -34,7 +34,7 @@ def validate(package, wabt=None, product=False):
     if product:
         result['product']=check_product(data)
         if result['product']['status']!='passed':
-            raise ValueError(json.dumps(result,ensure_ascii=False))
+            raise ValueError(json.dumps(result,ensure_ascii=True))
     return result
 
 
@@ -45,6 +45,6 @@ if __name__ == '__main__':
     parser.add_argument('--product', action='store_true', help='Require final-package product metadata/readiness/exit evidence; old format-only packages remain valid without this flag')
     args = parser.parse_args()
     try:
-        print(json.dumps(validate(args.package, args.wabt, args.product), ensure_ascii=False, indent=2))
+        print(json.dumps(validate(args.package, args.wabt, args.product), ensure_ascii=True, indent=2))
     except (ValueError, OSError, subprocess.TimeoutExpired) as error:
         parser.exit(2, str(error) + '\n')

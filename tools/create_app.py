@@ -36,7 +36,7 @@ def create(template, target, app_id, name, name_zh=None, font=None, font_license
         if font is not None:cache_launcher(manifest['launcher'],stage,raw)
         path.write_text(json.dumps(manifest,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
         stage.rename(target)
-    print(json.dumps({'app': str(target), 'template': template, 'id': app_id,'launcher_build':mode}, ensure_ascii=False))
+    print(json.dumps({'app': str(target), 'template': template, 'id': app_id,'launcher_build':mode}, ensure_ascii=True))
 
 
 if __name__ == '__main__':

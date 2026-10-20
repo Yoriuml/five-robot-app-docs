@@ -1,10 +1,10 @@
 # 五号机器人 XApp SDK
 
-公开、可独立构建的完整开发包：**SDK 2026.10.20.2 · API 2.15 · 包格式 1**。设备 ESP32-C3，240×240。公共 API/ABI 与包格式保持不变。
+公开、可独立构建的完整开发包：**SDK 2026.10.20.3 · API 2.15 · 包格式 1**。设备 ESP32-C3，240×240。公共 API/ABI 与包格式保持不变。
 
 [GitHub](https://github.com/Yoriuml/five-robot-app-docs) · [Gitee](https://gitee.com/yorium/five-robot-app-docs) · [官方版本索引和 SDK 下载](https://site.flashbot5.com/developer/v1/index.json) · [安装工作台](https://site.flashbot5.com/install)
 
-固定同一标签 `sdk-2026.10.20.2`，避免跨发行版拼接头文件、工具和示例。仓库镜像网络不通时，下载官方完整 SDK ZIP 并验哈希。
+固定同一标签 `sdk-2026.10.20.3`，避免跨发行版拼接头文件、工具和示例。仓库镜像网络不通时，下载官方完整 SDK ZIP 并验哈希。
 
 ## 开始
 

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "sdk_release": "2026.10.20.2",
-  "git_tag": "sdk-2026.10.20.2",
+  "sdk_release": "2026.10.20.3",
+  "git_tag": "sdk-2026.10.20.3",
   "api_version": "2.15",
   "package_format": 1,
   "repositories": {

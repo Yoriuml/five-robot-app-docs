@@ -16,13 +16,13 @@
     "sdk/xapp/x622_tracker.h": "67def04c1f905250003ad71805165d73c92555e01b288219274059c1ce7a0738",
     "sdk/xapp/x622_ui.h": "b4a2c492c17ac220d01daa80f9ad19574c96498d01d233fd7e59ceb98f00ea64",
     "sdk/xapp/x622_xapp.h": "c9211624a88c171540d716291efe176fe27b20d0affd64429a1578ee01ab01f2",
-    "tools/xapp/xapp_tool.py": "6a9d2db396802005c46ff3bc61618dcf9d200dd43f1fd911dfe0c57b233ce4d0",
+    "tools/xapp/xapp_tool.py": "20721ed5334de254a00f9270b8ee3fe52dfe3fb53d598b6c9f42cb06757fd9fa",
     "tools/xapp/wasm_profile.py": "f96f758402ced6e6f00d0984194fb18f68c4062f2e3815e9f4cac1df01dac54e",
     "tools/xapp/presentation.py": "6a594007ab80b243bb1fd6810748064d93d30d0d1fc7132616172ef76882d75d",
     "tools/xapp/manifest.schema.json": "c581edca1ecd081473d78a64b813dff6652837bfc326bbc30ebb1ca0d8960151"
   },
   "scope": "All public XApp declarations plus public packaging/validation tools; no device or private host implementation",
-  "sdk_release": "2026.10.20.2",
+  "sdk_release": "2026.10.20.3",
   "api_snapshot_release": "2026.10.19.2",
   "public_tool_notes": "Unified AI rules, complete product templates, independent product checks and shared tool/dependency caches. Device headers, imports, API 2.15 and package format 1 remain unchanged."
 }

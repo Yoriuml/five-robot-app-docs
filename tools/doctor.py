@@ -67,7 +67,7 @@ def main():
     parser.add_argument('--app', type=Path, help='Read app.json to infer required optional dependencies')
     args = parser.parse_args()
     report = inspect_environment(args.zig, args.wabt, args.cache_dir, args.features, args.app)
-    print(json.dumps(report, ensure_ascii=False, indent=2))
+    print(json.dumps(report, ensure_ascii=True, indent=2))
     return 0 if report['ready'] else 2
 
 

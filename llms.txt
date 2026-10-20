@@ -1,6 +1,6 @@
 # Five Robot XApp SDK
 
-SDK 2026.10.20.2; API 2.15; XAPP package format 1.
+SDK 2026.10.20.3; API 2.15; XAPP package format 1.
 Public API headers and device firmware are unchanged.
 
 Official index: https://site.flashbot5.com/developer/v1/index.json

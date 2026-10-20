@@ -72,5 +72,7 @@ if __name__=='__main__':
     try:
         result=check_product(args.package.read_bytes());text=json.dumps(result,ensure_ascii=False,indent=2)
         if args.report:args.report.write_text(text+'\n',encoding='utf-8')
-        print(text);raise SystemExit(0 if result['status']=='passed' else 2)
+        # Reports remain readable UTF-8 files; console JSON also works in legacy
+        # Windows pipes (CP1252/GBK) without losing Unicode after JSON decoding.
+        print(json.dumps(result,ensure_ascii=True,indent=2));raise SystemExit(0 if result['status']=='passed' else 2)
     except (ValueError,OSError,KeyError,UnicodeError,struct.error) as error:parser.exit(2,str(error)+'\n')
