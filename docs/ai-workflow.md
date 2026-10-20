@@ -1,6 +1,6 @@
 # AI 开发 XApp 的统一执行契约
 
-> 适用：SDK 2026.10.20.1，API 2.15，包格式 1；历史发行保持不变。
+> 适用：SDK 2026.10.20.2，API 2.15，包格式 1；历史发行保持不变。
 > 本文是 AI 的唯一执行入口；SDK 工具、真实头文件与下列链接提供细节。
 > 实施范围见[规则落地说明](ai-rules-rollout.md)，环境复用见[缓存说明](environment-cache.md)。人工规则与自动检查的证据范围分别记录。
 
@@ -26,7 +26,7 @@
 
 ## 2. 环境准备、下载与时间
 
-- **ENV-01 先查再装。** 先运行 `python tools/doctor.py`，可带 `--app` 检查资产缓存。按[工具定位顺序](troubleshooting.md)复用已验证的 Zig/WABT；不要每个应用重新下载整套工具。支持显式路径、环境变量、PATH、SDK `.tools` 和[共享缓存](environment-cache.md)。
+- **ENV-01 先查再装。** 先运行 `python tools/doctor.py`，可带 `--app` 检查资产缓存。按[工具定位顺序](troubleshooting.md)复用已验证的 Zig/WABT；不要每个应用重新下载整套工具。支持显式路径、环境变量、PATH、SDK `.tools` 和[共享缓存](environment-cache.md)。源码/JSON 按 UTF-8 读写，显式指定编码，不依赖系统区域设置；自检覆盖英文 Windows。
 - **ENV-02 一次获取。** 下载完整 `sdk.zip`，按索引核对字节数与 SHA-256；解压后在本地校验文件清单。禁止对完整 SDK 中已有文件逐个联网获取。模板与头文件必须同发行；已有完整 SDK 不必再下模板 ZIP。
 - **ENV-03 缓存按内容认定。** 已通过版本与哈希验证的归档/工具可复用；损坏、版本错误的缓存不能当成功。准备阶段区分索引、SDK、工具链、依赖、解压各自耗时。共享缓存与自动镜像切换是[待实现工具项](ai-rules-rollout.md)，当前不得假设已存在新参数。
 - **ENV-04 有界网络尝试。** 记录具体 URL、HTTP 状态、字节数或超时阶段。同一失败方式不盲目重复；换固定发行镜像、ZIP、PowerShell Invoke-WebRequest 等可用方式。对中断的大归档保留诊断，不能下载 HTML 后当 ZIP 使用，也不能修改预期哈希放行。

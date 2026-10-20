@@ -8,7 +8,7 @@ root = Path(__file__).resolve().parents[1]
 snapshot = json.loads((root / 'SDK-SNAPSHOT.json').read_text(encoding='utf-8'))
 for name, digest in snapshot['files'].items():
     assert hashlib.sha256((root / name).read_bytes()).hexdigest() == digest, name
-assert '#define X622_XAPP_API_MINOR 15' in (root / 'sdk/xapp/x622_xapp.h').read_text()
+assert '#define X622_XAPP_API_MINOR 15' in (root / 'sdk/xapp/x622_xapp.h').read_text(encoding='utf-8')
 sys.path.insert(0, str(root / 'tools'))
 from generate_api import generate
 assert json.loads((root / 'api.json').read_text(encoding='utf-8')) == generate(), 'api.json is stale'

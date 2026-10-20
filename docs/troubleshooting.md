@@ -27,4 +27,4 @@ Zig 固定 0.15.2、WABT 固定 1.0.41。工具目录与缓存不进入 Git，�
 五套默认模板带许可与原生资源缓存，缺可选 Pillow/fontTools 不阻止创建/构建；修改图标或生成新字形再运行 `bootstrap.py --features launcher`。共享缓存与离线准备见[环境说明](environment-cache.md)。
 不要自动删除任意用户目录。构建临时文件位于系统临时目录，产物由输出参数指定；准备工具的临时目录在经过边界检查的共享缓存内，完成验证后原子发布。
 
-SDK 2026.10.20.1 不修改 API。api.json 的 sdk_release 仍是 API 快照来源 2026.10.19.2，由 SDK-SNAPSHOT.json 的 api_snapshot_release 记录；当前 SDK 发行与工具版本分别查 sdk-release.json、toolchain.lock.json。
+SDK 2026.10.20.2 不修改 API。api.json 的 sdk_release 仍是 API 快照来源 2026.10.19.2，由 SDK-SNAPSHOT.json 的 api_snapshot_release 记录；当前 SDK 发行与工具版本分别查 sdk-release.json、toolchain.lock.json。

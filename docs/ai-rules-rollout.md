@@ -1,6 +1,6 @@
 # SDK AI 开发规则落地方案
 
-> 发行：SDK 2026.10.20.1 / API 2.15 / XAPP 包格式 1。AI 执行契约集中在 [ai-workflow.md](ai-workflow.md)。
+> 发行：SDK 2026.10.20.2 / API 2.15 / XAPP 包格式 1。AI 执行契约集中在 [ai-workflow.md](ai-workflow.md)。
 > 本次只改独立 SDK 的文档、模板、资产和工具；公共头文件、API 索引与设备代码保持不变。
 > api.json 的 sdk_release 保留 API 快照来源 2026.10.19.2；新版 SDK 发行号见 sdk-release.json，来源字段见 SDK-SNAPSHOT.json 的 api_snapshot_release。这不是版本混用。
 > 以下先列本次落地范围，后文保留原始方案作为设计依据。“拟补”是原方案用语，不是新的功能承诺。

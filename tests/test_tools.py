@@ -61,7 +61,7 @@ class PublicSDK(unittest.TestCase):
         self.assertEqual(minimum_minor('audio_stop'),3)
 
     def test_lock_checksums_and_https(self):
-        lock=json.loads((ROOT/'toolchain.lock.json').read_text())
+        lock=json.loads((ROOT/'toolchain.lock.json').read_text(encoding='utf-8'))
         for tools in lock['platforms'].values():
             for tool in tools.values():
                 self.assertTrue(tool['url'].startswith('https://'))
@@ -84,7 +84,7 @@ class PublicSDK(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             output=Path(directory)/'app'
             create('native-ui',output,'my-app','My App')
-            self.assertEqual(json.loads((output/'app.json').read_text())['id'],'my-app')
+            self.assertEqual(json.loads((output/'app.json').read_text(encoding='utf-8'))['id'],'my-app')
             with self.assertRaises(ValueError): create('native-ui',output,'my-app','My App')
             with self.assertRaises(ValueError): create('../sdk',Path(directory)/'other','my-app','My App')
 

@@ -118,7 +118,7 @@ def prepare_launcher(cache=None, *, offline=False, wheel_dir=None, timeout=600, 
                           '--dest', str(wheels), '--cache-dir', str(cache / 'pip')], timeout)
             except ValueError:
                 from sdk_cache import file_sha256
-                allowed = set(re.findall(r'--hash=sha256:([a-f0-9]{64})', requirement_file.read_text()))
+                allowed = set(re.findall(r'--hash=sha256:([a-f0-9]{64})', requirement_file.read_text(encoding='utf-8')))
                 for file in wheels.glob('*.whl'):
                     if not any(file.name.lower().startswith(name.lower() + '-' + version + '-')
                                for name, version in pinned.items()):

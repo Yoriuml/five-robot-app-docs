@@ -159,7 +159,7 @@ class Products(unittest.TestCase):
             self.assertTrue(cached_launcher_available(config,target))
             self.assertEqual(launcher(config,target,allow_generate=False)[1],'checksum-matched-template-assets')
             self.assertTrue((target/'launcher/CUSTOM-FONT-OFL.txt').is_file())
-            self.assertIn('source_sha256',json.loads((target/'launcher/CUSTOM-FONT.json').read_text()))
+            self.assertIn('source_sha256',json.loads((target/'launcher/CUSTOM-FONT.json').read_text(encoding='utf-8')))
             bad=Path(directory)/'bad'
             with self.assertRaisesRegex(ValueError,'missing name characters'):
                 create('hello',bad,'bad-font','Bad Font','天气预报',source,license_file)

@@ -159,7 +159,7 @@ class SharedPreparation(unittest.TestCase):
         with patch.object(bootstrap, 'extract', side_effect=OSError('injected failure')):
             with self.assertRaisesRegex(OSError, 'injected failure'):
                 bootstrap.prepare_tool('wabt', item, cache, archive_dir=offline)
-        self.assertEqual(marker.read_text(), 'keep')
+        self.assertEqual(marker.read_text(encoding='utf-8'), 'keep')
         self.assertFalse(list(target.parent.glob('.staging-*')))
 
     def test_two_workers_extract_once(self):
@@ -201,13 +201,13 @@ class SharedPreparation(unittest.TestCase):
             files = bootstrap.prepare_tool('wabt', item, cache, archive_dir=offline)
         directory = sdk_cache.installation(cache, 'wabt', item)
         receipt_file = directory / 'receipt.json'
-        receipt = json.loads(receipt_file.read_text())
+        receipt = json.loads(receipt_file.read_text(encoding='utf-8'))
         receipt['executables'][files[0].name]['path'] = '../../outside'
         receipt_file.write_text(json.dumps(receipt))
         self.assertIsNone(sdk_cache.installed_files(directory, 'wabt', item))
 
     def test_lock_versions_match_public_tool_discovery(self):
-        lock = json.loads((ROOT / 'toolchain.lock.json').read_text())
+        lock = json.loads((ROOT / 'toolchain.lock.json').read_text(encoding='utf-8'))
         for tools in lock['platforms'].values():
             self.assertEqual({name: item['version'] for name, item in tools.items()}, toolchain.VERSIONS)
 
@@ -243,8 +243,8 @@ class SharedPreparation(unittest.TestCase):
         file, versions, digest = python_dependencies.requirements()
         self.assertEqual(set(versions), {'Pillow', 'fontTools'})
         self.assertEqual(len(digest), 64)
-        self.assertIn('--require-hashes', file.read_text())
-        self.assertIn('--only-binary=:all:', file.read_text())
+        self.assertIn('--require-hashes', file.read_text(encoding='utf-8'))
+        self.assertIn('--only-binary=:all:', file.read_text(encoding='utf-8'))
 
 if __name__ == '__main__':
     unittest.main()
