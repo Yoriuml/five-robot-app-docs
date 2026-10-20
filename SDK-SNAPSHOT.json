@@ -22,6 +22,7 @@
     "tools/xapp/manifest.schema.json": "c581edca1ecd081473d78a64b813dff6652837bfc326bbc30ebb1ca0d8960151"
   },
   "scope": "All public XApp declarations plus public packaging/validation tools; no device or private host implementation",
-  "sdk_release": "2026.10.19.2",
-  "public_tool_notes": "Public build/validation workflow extended in this SDK release; device headers remain unchanged."
+  "sdk_release": "2026.10.20.1",
+  "api_snapshot_release": "2026.10.19.2",
+  "public_tool_notes": "Unified AI rules, complete product templates, independent product checks and shared tool/dependency caches. Device headers, imports, API 2.15 and package format 1 remain unchanged."
 }

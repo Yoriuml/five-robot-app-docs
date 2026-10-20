@@ -1,16 +1,22 @@
 # Five Robot XApp SDK
 
-SDK release 2026.10.19.2; API 2.15; package format 1. Freestanding C/C++ -> wasm32 -> .xapp; 240x240 ESP32-C3.
+SDK 2026.10.20.1; API 2.15; XAPP package format 1.
+Public API headers and device firmware are unchanged.
 
-Start: https://site.flashbot5.com/developer/v1/index.json
+Official index: https://site.flashbot5.com/developer/v1/index.json
 GitHub: https://github.com/Yoriuml/five-robot-app-docs
 Gitee: https://gitee.com/yorium/five-robot-app-docs
-Pin the same tag on both mirrors. Verify sdk.zip SHA256 before extracting. Never reconstruct unreadable headers.
 
-Read README.md, AGENTS.md, docs/ai-workflow.md, docs/quickstart.md, docs/development-rules.md, then real sdk/xapp/*.h.
-api.json lists verified names, signatures, permissions and import version gates. Header comments define structures/ownership/units/quotas.
-Run tools/doctor.py; tools/bootstrap.py installs checksum-pinned official tool archives. Generate with tools/create_app.py; build with tools/build.py; independently validate with tools/validate.py.
-Test final callback exports and necessary imports, reachable exit and worst-case limits. Unused random is not required.
-Headers unavailable: use complete ZIP, mirror, versioned file JSON or GitHub contents base64. If still unavailable, report the precise gap instead of inventing APIs.
-No firmware/API/partition changes, credentials in source, WASI/malloc/threads or automatic flashing.
-Static/host/runtime/hardware results must be separate. No device service simulator is bundled.
+Mandatory AI execution entry: docs/ai-workflow.md
+Read it fully, then open capability-specific real SDK headers and linked documents.
+Implementation scope and evidence boundaries: docs/ai-rules-rollout.md
+Shared tool and optional asset dependency cache: docs/environment-cache.md
+Default templates have cached licensed launcher assets; no third-party Python packages are needed.
+tools/check_product.py checks final package presentation; build enables it by default.
+Do not treat static, host, final-WASM preview or hardware results as interchangeable.
+
+Pin one immutable release; reuse verified local SDK/toolchain files.
+Use actual API contracts, final package checks and separate static/stub/runtime/hardware evidence.
+Product input roles differ from historical CONFIRM/BACK ABI names; follow the documented target profile.
+No invented SDK declarations, implicit firmware/API edits, credential disclosure or automatic device operations.
+User needs and authorization govern task scope.

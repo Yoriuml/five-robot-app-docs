@@ -1,0 +1,38 @@
+{
+  "id": "native-ui-audio",
+  "name": "Native UI Audio",
+  "version": "1.1.0",
+  "api_major": 2,
+  "api_minor": 15,
+  "permissions": 515,
+  "linear_memory": 0,
+  "stack": 4096,
+  "event_queue": 8,
+  "tick_ms": 20,
+  "launcher": {
+    "names": {
+      "en": "Native UI Audio",
+      "zh": "音画示例"
+    },
+    "icon": "launcher/icon.png",
+    "font": "launcher/starter.otf"
+  },
+  "required_exports": [
+    "xapp_init",
+    "xapp_tick",
+    "xapp_event",
+    "xapp_shutdown",
+    "xapp_startup_ready"
+  ],
+  "required_imports": [
+    "input_state",
+    "exit",
+    "ui_config",
+    "ui_scene",
+    "ui_texture",
+    "resource_read",
+    "audio_track",
+    "audio_mix_status",
+    "audio_stop"
+  ]
+}

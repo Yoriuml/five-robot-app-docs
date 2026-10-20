@@ -40,7 +40,10 @@ def generate():
                               permission_any_of=1536 if name in ('pcm_stop','pcm_status') else 0,
                               **declarations[name]))
     release=json.loads((ROOT/'sdk-release.json').read_text(encoding='utf-8'))
-    return {'schema_version':1, 'sdk_release':release['sdk_release'], 'api_version':release['api_version'],
+    # Tooling-only SDK releases keep the immutable API snapshot and its original
+    # provenance. A new SDK release does not imply a new API snapshot.
+    snapshot=json.loads((ROOT/'SDK-SNAPSHOT.json').read_text(encoding='utf-8'))
+    return {'schema_version':1, 'sdk_release':snapshot.get('api_snapshot_release',release['sdk_release']), 'api_version':release['api_version'],
             'package_format':1, 'import_module':'x622', 'functions':functions,
             'lifecycle':{name:{'required':name in ('xapp_init','xapp_tick'),
                                'wasm_parameters':['i32' if c=='i' else 'i64' for c in params],

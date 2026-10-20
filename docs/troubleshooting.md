@@ -19,10 +19,12 @@
 
 ## 工具定位顺序
 
-构建参数 → `XAPP_ZIG`（可执行文件）/`XAPP_WABT`（bin 目录）→ PATH → SDK `.tools/`。
+构建参数 → `XAPP_ZIG`（可执行文件）/`XAPP_WABT`（bin 目录）→ PATH → SDK `.tools/` → 已验证共享缓存。显式参数/环境变量版本错误时必须修正，不静默替换；自动找到的错误版本可继续寻找匹配工具。
 Zig 固定 0.15.2、WABT 固定 1.0.41。工具目录与缓存不进入 Git，也不进入 SDK 发行包。
 锁文件包含 Windows x64、Linux x64/arm64、macOS arm64 的官方归档与 SHA256。
 这些归档由上游提供，遵循其各自许可证；本仓库未重新打包工具二进制。
 
-环境检查缺可选 Pillow/fontTools 不会阻止四套基本示例；仅生成字体/启动器时需要它们。
-不要自动删除任意用户目录。所有脚本的临时输出位于系统临时目录或本 SDK 的 dist/.cache/.tools。
+五套默认模板带许可与原生资源缓存，缺可选 Pillow/fontTools 不阻止创建/构建；修改图标或生成新字形再运行 `bootstrap.py --features launcher`。共享缓存与离线准备见[环境说明](environment-cache.md)。
+不要自动删除任意用户目录。构建临时文件位于系统临时目录，产物由输出参数指定；准备工具的临时目录在经过边界检查的共享缓存内，完成验证后原子发布。
+
+SDK 2026.10.20.1 不修改 API。api.json 的 sdk_release 仍是 API 快照来源 2026.10.19.2，由 SDK-SNAPSHOT.json 的 api_snapshot_release 记录；当前 SDK 发行与工具版本分别查 sdk-release.json、toolchain.lock.json。

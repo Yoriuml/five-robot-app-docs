@@ -1,7 +1,32 @@
 {
-  "id": "resources-zh-demo", "name": "中文资源示例", "version": "1.0.0",
-  "api_major": 2, "api_minor": 15, "permissions": 3,
-  "linear_memory": 0, "stack": 4096, "event_queue": 8, "tick_ms": 100,
-  "required_exports": ["xapp_init", "xapp_tick", "xapp_event"],
-  "required_imports": ["input_state", "exit", "gfx_resource"]
+  "id": "resources-zh-demo",
+  "name": "Chinese Resources",
+  "version": "1.1.0",
+  "api_major": 2,
+  "api_minor": 12,
+  "permissions": 3,
+  "linear_memory": 0,
+  "stack": 4096,
+  "event_queue": 8,
+  "tick_ms": 20,
+  "launcher": {
+    "names": {
+      "en": "Chinese Resources",
+      "zh": "中文资源"
+    },
+    "icon": "launcher/icon.png",
+    "font": "launcher/starter.otf"
+  },
+  "required_exports": [
+    "xapp_init",
+    "xapp_tick",
+    "xapp_event",
+    "xapp_shutdown",
+    "xapp_startup_ready"
+  ],
+  "required_imports": [
+    "input_state",
+    "exit",
+    "gfx_resource"
+  ]
 }

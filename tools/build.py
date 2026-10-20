@@ -16,6 +16,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools/xapp'))
 import xapp_tool
 from toolchain import locate, versions
+from product_assets import launcher as prepare_launcher, attach
+from check_product import check_product
 
 def run(args):
     result = subprocess.run([str(x) for x in args], capture_output=True, text=True,
@@ -56,15 +58,25 @@ def build(args):
             raise ValueError('Fixed-memory apps cannot use memory.size or memory.grow')
         package = temp / 'verified.xapp'
         resources = app / 'resources'
-        xapp_tool.command_pack(SimpleNamespace(manifest=manifest_path, wasm=wasm,
+        packing_manifest=temp/'app.json'
+        packing_manifest.write_text(json.dumps({k:v for k,v in manifest.items() if k!='launcher'}),encoding='utf-8')
+        xapp_tool.command_pack(SimpleNamespace(manifest=packing_manifest, wasm=wasm,
             resources=resources if resources.is_dir() else None, output=package))
         blob = package.read_bytes()
+        asset_mode='none'
+        if manifest.get('launcher'):
+            prepared,asset_mode=prepare_launcher(manifest['launcher'],app)
+            blob=attach(blob,resources if resources.is_dir() else None,prepared)
         info = xapp_tool.verify_bytes(blob)
         for label, required, actual in [('imports', required_imports, info['profile']['imports']),
                                         ('exports', required_exports, info['profile']['exports'])]:
             missing = set(required) - set(actual)
             if missing:
                 raise ValueError('Final WASM missing required ' + label + ': ' + ', '.join(sorted(missing)))
+        product=check_product(blob)
+        if product['status']!='passed':
+            errors=[r['rule_id']+': '+r['detail'] for r in product['checks'] if r['status']=='failed']
+            raise ValueError('Product checks failed: '+'; '.join(errors))
         report = {'id': info['app_id'], 'version': info['version'],
             'api': str(info['api_major']) + '.' + str(info['api_minor']),
             'package_bytes': len(blob), 'package_sha256': hashlib.sha256(blob).hexdigest(),
@@ -73,6 +85,7 @@ def build(args):
             'wabt_version': tool_versions['wabt'],
             'wabt_semantic_validation': True, 'abi_and_package_validation': True,
             'runtime_tested': False, 'hardware_tested': False,
+            'product':product,'launcher_build':asset_mode,
             'test_scope': 'Static ABI, fixed-memory profile, WABT semantics and package integrity. No private WAMR host or hardware execution.'}
         args.output.parent.mkdir(parents=True, exist_ok=True)
         report_path = args.output.with_suffix('.validation.json')

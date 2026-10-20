@@ -1,5 +1,7 @@
 # XApp 开发规则
 
+本页为基础能力摘要；AI 的唯一完整执行契约是 [ai-workflow.md](ai-workflow.md)，工具与模板的实施状态见[落地方案](ai-rules-rollout.md)。
+
 ## 生命周期
 
 包含 `x622_xapp.h`；实现 `xapp_init(void)`、`xapp_tick(uint64_t)`，按需实现五参数 `xapp_event` 与 `xapp_shutdown`。
@@ -8,6 +10,7 @@
 ## 按键与退出
 
 SDK 的逻辑输入为 UP、DOWN、CONFIRM、AUX（旧别名 BACK）。K2 由应用处理，不存在系统替你退出的 K2 捷径。
+CONFIRM/BACK 是历史 ABI 名称，不等于当前产品物理“中键/左键”角色；当前源码映射及事件/状态位序差异见[输入契约](ai-workflow.md#6-按键与退出)。发布时应绑定目标固件配置，保留 ABI 值。
 必须提供明确可到达的退出选项，调用 `x622_exit()` 后立即结束回调。退出处理不能因前一次绘制失败而被禁用。
 启动时等待原按键松开；处理短按与长按时避免同一次操作执行两次。具体 SDK 事件契约见 API 参考。
 

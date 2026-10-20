@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "sdk_release": "2026.10.19.2",
-  "git_tag": "sdk-2026.10.19.2",
+  "sdk_release": "2026.10.20.1",
+  "git_tag": "sdk-2026.10.20.1",
   "api_version": "2.15",
   "package_format": 1,
   "repositories": {
@@ -9,6 +9,9 @@
     "gitee": "https://gitee.com/yorium/five-robot-app-docs"
   },
   "developer_index": "https://site.flashbot5.com/developer/v1/index.json",
+  "test_developer_index": "https://site.flashbot5.cn/developer/v1/index.json",
   "python_minimum": "3.10",
-  "templates": ["hello", "native-ui", "resources-zh", "http"]
+  "templates": ["hello", "native-ui", "native-ui-audio", "resources-zh", "http"],
+  "ai_entry": "docs/ai-workflow.md",
+  "product_checker": "tools/check_product.py"
 }
