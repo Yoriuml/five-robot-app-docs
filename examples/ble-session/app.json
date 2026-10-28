@@ -1,0 +1,35 @@
+{
+  "id": "ble-session-demo",
+  "name": "BLE Session",
+  "version": "0.1.0",
+  "api_major": 2,
+  "api_minor": 16,
+  "permissions": 259,
+  "linear_memory": 0,
+  "stack": 4096,
+  "event_queue": 8,
+  "tick_ms": 20,
+  "launcher": {
+    "names": {
+      "en": "BLE Session",
+      "zh": "BLE应用"
+    },
+    "icon": "launcher/icon.png",
+    "font": "launcher/starter.otf"
+  },
+  "required_exports": [
+    "xapp_init",
+    "xapp_tick",
+    "xapp_event",
+    "xapp_shutdown",
+    "xapp_startup_ready"
+  ],
+  "required_imports": [
+    "input_state",
+    "exit",
+    "gfx_submit",
+    "ble_open",
+    "ble_status",
+    "ble_stop"
+  ]
+}

@@ -26,12 +26,12 @@ def run(args):
         raise ValueError(result.stdout + result.stderr)
     return result.stdout.strip()
 
-def build(args):
+def build(args, *, resolved_tools=None, checked_versions=None):
     app = args.app.resolve()
     manifest_path = app / 'app.json'
     manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
-    compiler, validator, disassembler = locate(args.zig, args.wabt)
-    tool_versions = versions(compiler, validator)
+    compiler, validator, disassembler = resolved_tools or locate(args.zig, args.wabt)
+    tool_versions = checked_versions or versions(compiler, validator)
     sources = args.source or [app / 'main.c']
     required_imports = manifest.get('required_imports', [])
     required_exports = manifest.get('required_exports', [])
@@ -94,6 +94,7 @@ def build(args):
         report_path.write_text(json.dumps(report, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
         print(json.dumps({'package': str(args.output), 'bytes': len(blob),
                           'sha256': report['package_sha256'], 'report': str(report_path)}, ensure_ascii=True))
+        return report
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)

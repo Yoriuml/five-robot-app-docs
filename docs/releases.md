@@ -1,6 +1,8 @@
+> 当前候选：2026.10.28.1 / API 2.16，保留旧ABI。源码提交与可复现工件先冻结，公共标签、推送和索引切换由维护方在最终整机门禁通过后统一进行。release-ready表示工件就绪，不等于已经上线。见 [能力与限制](api-2.16-readiness.md)、[BLE 状态](ble-capabilities.md)和[新工作流](workflow-automation.md)。下文 2026.10.20.3 是历史发行示例，不能原地覆盖。
+
 # SDK 发行和镜像规范
 
-SDK 发行号：2026.10.20.3；API：2.15；XAPP 包格式：1。三个编号不能混用。旧 2026.10.19.2 保留，公共 API 声明不变。
+本次 SDK 发行号：2026.10.28.1；API：2.16；XAPP 包格式：1。三个编号不能混用。旧 2026.10.20.3/API2.15与2026.10.19.2保留，原有ABI继续兼容。
 GitHub 与 Gitee 发布相同 commit/tag；发行 ZIP 由同一份冻结字节生成，历史标签和资源不可原地覆盖。
 
 ## 下载契约
@@ -31,7 +33,7 @@ GET /developer/releases/<sdk_release>/file?path=<public-relative-path>
 先运行 `python tools/test_sdk.py`，提交全部公开修改，再执行：
 
 ```sh
-python tools/release.py --output dist/releases/2026.10.20.3
+python tools/release.py --output dist/releases/2026.10.28.1
 ```
 
 工具仅打包已提交且通过公开目录白名单的文件，拒绝覆盖现有发行目录；同一源码树可重复得到相同 ZIP 字节。

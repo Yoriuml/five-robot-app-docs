@@ -1,12 +1,10 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "X622 XApp API 2.1 through 2.15 fixed-memory profile",
+  "title": "X622 XApp API 2.1 through 2.16 fixed-memory profile",
   "type": "object",
   "additionalProperties": false,
   "required": ["id", "name", "version"],
   "properties": {
-    "required_imports": {"type": "array", "uniqueItems": true, "items": {"type": "string"}, "description": "SDK build gate only: imports that must survive final WASM linking. Not part of the device package header."},
-    "required_exports": {"type": "array", "uniqueItems": true, "items": {"type": "string"}, "description": "SDK build gate only: lifecycle callbacks that must survive final WASM linking."},
     "launcher": {
       "type": "object", "additionalProperties": false, "required": ["names"],
       "properties": {
@@ -22,7 +20,7 @@
     "name": {"type": "string", "minLength": 1, "description": "1..47 UTF-8 bytes; byte length is checked by the packager."},
     "version": {"type": "string", "minLength": 1, "description": "1..15 UTF-8 bytes; byte length is checked by the packager."},
     "api_major": {"const": 2, "default": 2},
-    "api_minor": {"enum": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], "default": 1},
+    "api_minor": {"enum": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], "default": 1},
     "permissions": {"type": "integer", "minimum": 0, "maximum": 4294967295, "default": 0, "description": "Public permission mask 0x3F7F; ESPNOW (8192) requires API 2.6 and <=48 KiB linear memory. AUDIO_CAPTURE (1024) requires API 2.7. Unknown bits and import/permission mismatches are rejected by release validation."},
     "linear_memory": {
       "type": "integer",

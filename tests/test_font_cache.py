@@ -10,9 +10,26 @@ from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
 import font_cache
+from font_policy import check_names
 
 
 class FontPreparation(unittest.TestCase):
+    def test_default_profile_and_forbidden_family_do_not_regress(self):
+        locked=json.loads(font_cache.LOCK.read_text(encoding='utf-8'))
+        self.assertEqual(locked['family'],'HarmonyOS Sans SC')
+        self.assertEqual(locked['license'],'HarmonyOS-Sans-Fonts-License')
+        for name in ('Noto Sans SC', 'NotoSansSC-VF.ttf', 'NotoSansCJKsc-Regular.otf'):
+            with self.assertRaisesRegex(ValueError,'GFX-10'):
+                check_names(name)
+        check_names('HarmonyOS Sans SC Medium','Noto Serif CJK SC Bold')
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory)
+            _,lock,entries=self.fixture(root)
+            lock.write_text(json.dumps(dict(license='OFL-1.1',family='Noto Sans SC',**entries)),encoding='utf-8')
+            with patch('bootstrap.urllib.request.urlopen',side_effect=AssertionError('network forbidden')):
+                with self.assertRaisesRegex(ValueError,'GFX-10'):
+                    font_cache.prepare_font(root/'cache',lock_path=lock)
+
     def fixture(self, root, license_text=b'SIL OPEN FONT LICENSE Version 1.1'):
         source = root / 'offline'
         source.mkdir()

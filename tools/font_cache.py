@@ -1,4 +1,4 @@
-"""Prepare a pinned public OFL CJK font once; standard library only.
+"""Prepare the pinned HarmonyOS Sans SC font once; standard library only.
 
 Default templates do not need the complete font. Use the reported font and
 license paths with create_app.py --font/--font-license for custom Chinese names.
@@ -10,6 +10,7 @@ import time
 
 from bootstrap import archive_for, emit
 from sdk_cache import cache_lock, cache_root
+from font_policy import check_names, license_kind
 
 LOCK = Path(__file__).with_name('font-assets.lock.json')
 
@@ -19,8 +20,9 @@ def prepare_font(cache=None, *, archive_dir=None, offline=False, timeout=30,
     started = time.monotonic()
     root = cache_root(cache)
     locked = json.loads(Path(lock_path).read_text(encoding='utf-8'))
-    if locked.get('license') != 'OFL-1.1':
-        raise ValueError('Only the pinned public OFL asset profile is supported')
+    if locked.get('license') not in ('OFL-1.1', 'HarmonyOS-Sans-Fonts-License'):
+        raise ValueError('Unsupported pinned font license profile')
+    check_names(locked.get('family', ''), locked['font']['url'], *locked['font'].get('mirrors', []))
     paths = {}
     for key in ('font', 'license_file'):
         item = locked[key]
@@ -32,10 +34,8 @@ def prepare_font(cache=None, *, archive_dir=None, offline=False, timeout=30,
             if path.stat().st_size != item['bytes']:
                 raise ValueError('Pinned font asset length mismatch: ' + key)
             paths[key] = str(path)
-    license_text = Path(paths['license_file']).read_text(encoding='utf-8')
-    if 'SIL OPEN FONT LICENSE' not in license_text or 'Version 1.1' not in license_text:
-        raise ValueError('The pinned license is not an OFL 1.1 document')
-    report = dict(stage='font_ready', license=locked['license'],
+    license_kind(Path(paths['license_file']).read_bytes(), locked['license'])
+    report = dict(stage='font_ready', license=locked['license'], family=locked.get('family'),
                   elapsed_ms=round((time.monotonic() - started) * 1000), **paths)
     emit(**report)
     return report

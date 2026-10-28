@@ -18,7 +18,7 @@ from unittest.mock import patch
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'tools'))
-from product_assets import launcher,attach,cached_launcher_available
+from product_assets import launcher,attach,cached_launcher_available,cache_launcher,launcher_cache_path
 from check_product import check_product
 from xapp import xapp_tool
 import presentation
@@ -130,6 +130,22 @@ class Products(unittest.TestCase):
                 raw,mode=launcher(config,app)
                 self.assertEqual(mode,'checksum-matched-template-assets');presentation.verify(raw)
 
+    def test_shared_read_only_sources_cache_only_inside_the_app(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);app=root/'app';app.mkdir();shared=root/'shared';shared.mkdir()
+            source=ROOT/'examples/native-ui/launcher'
+            for name in ('starter.otf','icon.png'):shutil.copyfile(source/name,shared/name)
+            config={'names':{'en':'Native UI','zh':'原生界面'},'font':str(shared/'starter.otf'),'icon':str(shared/'icon.png')}
+            data=self.metadata();write=Path.write_text
+            def deny_shared(path,*args,**kwargs):
+                if path.resolve().is_relative_to(shared.resolve()):raise AssertionError('write to shared source')
+                return write(path,*args,**kwargs)
+            with patch.object(Path,'write_text',deny_shared):cache_launcher(config,app,data)
+            self.assertTrue(launcher_cache_path(shared/'starter.otf',app,'.glyphs.json').is_file())
+            self.assertEqual({p.name for p in shared.iterdir()},{'starter.otf','icon.png'})
+            cached,mode=launcher(config,app,allow_generate=False)
+            self.assertEqual(cached,data);self.assertEqual(mode,'checksum-matched-template-assets')
+
     def test_creator_standard_library_and_transactional_failure(self):
         with tempfile.TemporaryDirectory() as directory:
             target=Path(directory)/'app'
@@ -168,6 +184,45 @@ class Products(unittest.TestCase):
     def test_all_role_helpers_are_identical(self):
         paths=[ROOT/'examples'/name/'product_input.h' for name in ('hello','native-ui','native-ui-audio','http','resources-zh')]
         self.assertEqual(len({p.read_bytes() for p in paths}),1)
+
+    @unittest.skipUnless(importlib.util.find_spec('PIL') and importlib.util.find_spec('fontTools'),'optional font generation dependencies')
+    def test_font_policy_checks_embedded_family_and_preserves_harmony_original(self):
+        from create_app import create
+        from fontTools.ttLib import TTFont
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory)
+            source=root/'ordinary.otf'
+            # Synthetic test font names, not a claim that this fixture is Huawei font data.
+            with TTFont(ROOT/'examples/hello/launcher/starter.otf') as face:
+                for record in face['name'].names:
+                    if record.nameID in (1,4,6,16):
+                        record.string='Noto Sans SC'.encode(record.getEncoding())
+                face.save(source)
+            with self.assertRaisesRegex(ValueError,'GFX-10'):
+                create('native-ui',root/'blocked','bad-font','Bad Font','我的应用',source,ROOT/'examples/hello/launcher/OFL.txt')
+            self.assertFalse((root/'blocked').exists())
+            with TTFont(source) as face:
+                for record in face['name'].names:
+                    if record.nameID in (1,4,6,16):
+                        record.string='HarmonyOS Sans SC Test'.encode(record.getEncoding())
+                face.save(source)
+            agreement=root/'LICENSE_Fonts'
+            agreement.write_text('Synthetic test marker: HarmonyOS Sans Fonts License Agreement',encoding='utf-8')
+            target=root/'harmony'
+            with redirect_stdout(io.StringIO()):
+                create('native-ui',target,'harmony-test','Harmony Test','我的应用',source,agreement)
+            manifest=json.loads((target/'app.json').read_text(encoding='utf-8'))
+            self.assertEqual((target/manifest['launcher']['font']).read_bytes(),source.read_bytes())
+            origin=json.loads((target/'launcher/CUSTOM-FONT.json').read_text(encoding='utf-8'))
+            self.assertFalse(origin['font_modified'])
+            self.assertEqual(origin['license'],'HarmonyOS-Sans-Fonts-License')
+            self.assertTrue(cached_launcher_available(manifest['launcher'],target))
+            # An old renamed Noto font is rejected even if its native glyph cache matches.
+            origin['source_family']='Noto Sans SC'
+            (target/'launcher/CUSTOM-FONT.json').write_text(json.dumps(origin),encoding='utf-8')
+            self.assertFalse(cached_launcher_available(manifest['launcher'],target))
+            with self.assertRaisesRegex(ValueError,'GFX-10'):
+                launcher(manifest['launcher'],target)
 
 
 if __name__=='__main__':unittest.main()

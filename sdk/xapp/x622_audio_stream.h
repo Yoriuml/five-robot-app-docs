@@ -2,14 +2,15 @@
 #include <stdint.h>
 
 /* API 2.7, exclusive half-duplex raw audio. The application chooses capture OR
- * playback; stop before changing direction. Exactly 16000 Hz PCM16LE mono. */
+ * playback; stop before changing direction. PCM16LE mono at 16000 Hz.
+ * API 2.16 additionally permits native 8000 Hz PLAYBACK; capture stays 16000. */
 #define X622_STREAM_CAPTURE 1u
 #define X622_STREAM_PLAYBACK 2u
 #define X622_STREAM_QUEUE_FRAMES 4u
 #pragma pack(push, 1)
 typedef struct {
     uint32_t direction;
-    uint32_t sample_rate;     /* 16000 */
+    uint32_t sample_rate;     /* 16000; API 2.16 playback may choose 8000 */
     uint32_t frame_samples;   /* 160..1024; fixed until stop */
     uint32_t volume;          /* playback 0..100; capture MUST be zero */
 } x622_audio_stream_config_t;

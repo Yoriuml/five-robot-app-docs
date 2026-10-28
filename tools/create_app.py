@@ -5,7 +5,7 @@ from pathlib import Path
 import shutil
 import tempfile
 from toolchain import ROOT
-from product_assets import launcher as prepare_launcher,install_ofl_font,cache_launcher
+from product_assets import launcher as prepare_launcher,install_font,cache_launcher
 
 
 def create(template, target, app_id, name, name_zh=None, font=None, font_license=None):
@@ -31,7 +31,7 @@ def create(template, target, app_id, name, name_zh=None, font=None, font_license
         manifest.update(id=app_id,name=name,version='1.0.0')
         manifest['launcher']['names']['en']=name
         if name_zh is not None:manifest['launcher']['names']['zh']=name_zh
-        if font is not None:install_ofl_font(font,stage,manifest['launcher'],font_license)
+        if font is not None:install_font(font,stage,manifest['launcher'],font_license)
         raw,mode=prepare_launcher(manifest['launcher'],stage)
         if font is not None:cache_launcher(manifest['launcher'],stage,raw)
         path.write_text(json.dumps(manifest,indent=2,ensure_ascii=False)+'\n',encoding='utf-8')
@@ -45,8 +45,8 @@ if __name__ == '__main__':
     parser.add_argument('--id', required=True)
     parser.add_argument('--name', required=True)
     parser.add_argument('--name-zh', help='Chinese name; included starter font covers its declared small set, custom names may need a licensed font and optional Pillow/fontTools')
-    parser.add_argument('--font',type=Path,help='Public/licensed OFL OTF/TTF/TTC source for custom names; creates a renamed portable subset and native cache')
-    parser.add_argument('--font-license',type=Path,help='OFL license; otherwise discover OFL.txt next to --font')
+    parser.add_argument('--font',type=Path,help='Licensed OTF/TTF/TTC; HarmonyOS unchanged, OFL renamed subset, with native cache; Noto Sans SC excluded')
+    parser.add_argument('--font-license',type=Path,help='Font license; otherwise discover OFL.txt or LICENSE_Fonts next to --font')
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
     try:

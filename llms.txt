@@ -1,14 +1,18 @@
 # Five Robot XApp SDK
 
-SDK 2026.10.20.3; API 2.15; XAPP package format 1.
-Public API headers and device firmware are unchanged.
+SDK 2026.10.28.1; API 2.16; package format 1. Preserve API<=2.15 imports and layouts.
+New BLE session/beacon, UDP/WS, UTC and native8k playback need matched API2.16 firmware.
+Release-ready artifacts are separate from public availability: follow the official index and docs/releases.md. AMBE is experimental/default OFF; DMR0.1.1 is a connection-test app without voice calls; published history stays immutable. See docs/api-2.16-readiness.md for capability and experimental limits.
 
 Official index: https://site.flashbot5.com/developer/v1/index.json
 GitHub: https://github.com/Yoriuml/five-robot-app-docs
 Gitee: https://gitee.com/yorium/five-robot-app-docs
 
 Mandatory AI execution entry: docs/ai-workflow.md
-Read it fully, then open capability-specific real SDK headers and linked documents.
+Use workflow.py prepare/build. Read only the returned capability context and target template first.
+Full stable rules remain in docs/ai-reference.md; do not load all of them for every APP.
+One source-filled JSON request can use workflow.py run. Tool-owned model calls: zero.
+See docs/workflow-automation.md. Do not repeat manual checks already covered by build.
 Implementation scope and evidence boundaries: docs/ai-rules-rollout.md
 Shared tool and optional asset dependency cache: docs/environment-cache.md
 Default templates have cached licensed launcher assets; no third-party Python packages are needed.

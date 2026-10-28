@@ -22,7 +22,7 @@
 Schema 位于 [manifest.schema.json](../tools/xapp/manifest.schema.json)。Schema 长度计数不代替 UTF-8 字节长度验证；最终使用打包器检查。
 
 可选 `launcher` 包含英文/中文名称、方形 PNG 图标、字体路径。中文名必须有你有权使用的 TTF/TTC/OTF，生成器做原生大小的字形子集；不要把私有字体、下载缓存或无权分发的资源直接提交仓库。
-面向用户的新产品交付按[统一契约 APP 规则](ai-workflow.md#3-模板应用名称与图标)提供图标、双语名称和所需中文字形。包格式仍允许旧包缺少 launcher；拟补的产品质量检查不应修改协议兼容性，状态见[落地方案](ai-rules-rollout.md)。
+面向用户的新产品交付按[统一契约 APP 规则](ai-reference.md#3-模板应用名称与图标)提供图标、双语名称和所需中文字形。包格式仍允许旧包缺少 launcher；拟补的产品质量检查不应修改协议兼容性，状态见[落地方案](ai-rules-rollout.md)。
 SDK 常量 `X622_XAPP_API_MINOR=15` 表示头文件版本，不会自动修改 app.json；两者由开发者保持一致。
 # 构建验收附加字段
 

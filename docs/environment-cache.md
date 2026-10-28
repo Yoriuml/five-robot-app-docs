@@ -4,6 +4,8 @@ SDK 发行版与 API 版本分别锁定。先读 [AI 执行契约](ai-workflow.m
 
 ## 默认流程
 
+常规用户使用 `tools/workflow.py prepare/build`，环境与缺项准备已自动编排，不再逐项调用下面的诊断命令。以下仅用于环境排障和 SDK 维护。
+
 ```sh
 python tools/doctor.py --app examples/native-ui
 # 仅在 doctor 报告缺少工具时：
@@ -20,15 +22,17 @@ python tools/doctor.py --features launcher
 
 可选 Pillow/fontTools 版本与 wheel 哈希见 [requirements-launcher.txt](../tools/requirements-launcher.txt)。它们安装在隔离缓存目录，不修改全局 Python。缺少合法字体或字形时明确报错；不得静默丢掉中文名、改为空白或从不明来源复制设备字体。
 
-自定义中文标题超出默认小字库时，可准备公开 OFL 完整字体（只有第一次下载约 18 MB）：
+自定义中文标题超出默认小字库时，自动准备锁定的 HarmonyOS Sans SC Medium（首次约 8.4 MB，以锁文件字节数为准）：
 
 ```sh
 python tools/font_cache.py
-# 读取末行 JSON 的 font 与 license_file，再创建可移植子集：
+# 读取末行 JSON 的 font 与 license_file，再创建可移植资源：
 python tools/create_app.py --template native-ui --id weather --name "Weather" --name-zh "天气预报" --font /reported/font.ttf --font-license /reported/LICENSE --output build/weather
 ```
 
-字体与许可证固定到公开上游提交及 SHA，见 [font-assets.lock.json](../tools/font-assets.lock.json)。支持 `--offline`、`--archive-dir` 和 `--cache-dir`，复用相同共享缓存。创建器会生成改名后的轻量子集和原生字形缓存，后续构建无需完整大字体及第三方库。用户自己的合法字体也可通过同一参数提供；不能默认复制设备私有字体。
+字体与许可证固定到 OpenHarmony 上游提交及 SHA，见 [font-assets.lock.json](../tools/font-assets.lock.json)。支持 `--offline`、`--archive-dir` 和 `--cache-dir`，复用相同共享缓存。HarmonyOS 原始字体按原字节复制到开发源码目录并保留协议，不能当作 OFL 修改或裁剪 TTF；最终 `.xapp` 仅含名称所需的 18px / 4bpp 渲染字形，不包含整份字体。OFL 字体仍支持许可证允许的改名子集。缓存完成后后续构建无需字体处理库。
+
+新 APP 中文 UI 优先 HarmonyOS Sans SC，Noto Sans SC / NotoSansSC / NotoSansCJKsc 已排除，不能作为备用字体或因旧缓存而重新选用。生成器检查源文件名、字体家族以及启动器来源记录；旧字体缓存不自动当作当前推荐。
 
 ## 缓存布局与复用
 

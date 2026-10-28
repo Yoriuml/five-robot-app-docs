@@ -5,6 +5,16 @@ I32, I64 = 0x7F, 0x7E
 PERMISSIONS = 0x3F7F
 # (parameter types, result types, required permission bits)
 IMPORTS = {
+    "ambe_start": ("ii", "i", 1536), "ambe_submit": ("iiii", "i", 1536),
+    "ambe_read": ("iii", "i", 1536), "ambe_status": ("iii", "i", 1536), "ambe_stop": ("i", "i", 1536),
+    "ble_open": ("ii", "i", 256),
+    "ble_beacon_start": ("ii", "i", 256), "ble_beacon_update": ("ii", "i", 256),
+    "ble_beacon_status": ("ii", "i", 256), "ble_beacon_stop": ("", "i", 256),
+    "clock_utc": ("ii", "i", 0),
+    "udp_open": ("ii", "i", 96), "udp_send": ("iii", "i", 96),
+    "udp_read": ("iii", "i", 96), "udp_status": ("iii", "i", 96), "udp_close": ("i", "i", 96),
+    "ws_open": ("ii", "i", 96), "ws_send": ("iiiii", "i", 96),
+    "ws_read": ("iii", "i", 96), "ws_status": ("iii", "i", 96), "ws_close": ("i", "i", 96),
     "ui_config": ("ii", "i", 2), "ui_texture": ("iiiiii", "i", 2),
     "ui_scene": ("iii", "i", 2), "ui_stats": ("ii", "i", 2),
     "wifi_gateway_start": ("ii", "i", 32), "wifi_gateway_status": ("ii", "i", 32),

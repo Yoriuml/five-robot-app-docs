@@ -1,10 +1,98 @@
 {
   "schema_version": 1,
-  "sdk_release": "2026.10.19.2",
-  "api_version": "2.15",
+  "sdk_release": "2026.10.28.1",
+  "api_version": "2.16",
   "package_format": 1,
   "import_module": "x622",
   "functions": [
+    {
+      "name": "ambe_read",
+      "module": "x622",
+      "minimum_api": "2.16",
+      "wasm_parameters": [
+        "i32",
+        "i32",
+        "i32"
+      ],
+      "wasm_results": [
+        "i32"
+      ],
+      "permission_mask": 1536,
+      "experimental": true,
+      "permission_any_of": 0,
+      "header": "sdk/xapp/x622_xapp.h",
+      "declaration": "int32_t x622_ambe_read(int32_t handle,x622_ambe_result_t*,uint32_t);"
+    },
+    {
+      "name": "ambe_start",
+      "module": "x622",
+      "minimum_api": "2.16",
+      "wasm_parameters": [
+        "i32",
+        "i32"
+      ],
+      "wasm_results": [
+        "i32"
+      ],
+      "permission_mask": 1536,
+      "experimental": true,
+      "permission_any_of": 0,
+      "header": "sdk/xapp/x622_xapp.h",
+      "declaration": "int32_t x622_ambe_start(const x622_ambe_config_t*,uint32_t);"
+    },
+    {
+      "name": "ambe_status",
+      "module": "x622",
+      "minimum_api": "2.16",
+      "wasm_parameters": [
+        "i32",
+        "i32",
+        "i32"
+      ],
+      "wasm_results": [
+        "i32"
+      ],
+      "permission_mask": 1536,
+      "experimental": true,
+      "permission_any_of": 0,
+      "header": "sdk/xapp/x622_xapp.h",
+      "declaration": "int32_t x622_ambe_status(int32_t handle,x622_ambe_status_t*,uint32_t);"
+    },
+    {
+      "name": "ambe_stop",
+      "module": "x622",
+      "minimum_api": "2.16",
+      "wasm_parameters": [
+        "i32"
+      ],
+      "wasm_results": [
+        "i32"
+      ],
+      "permission_mask": 1536,
+      "experimental": true,
+      "permission_any_of": 0,
+      "header": "sdk/xapp/x622_xapp.h",
+      "declaration": "int32_t x622_ambe_stop(int32_t handle);"
+    },
+    {
+      "name": "ambe_submit",
+      "module": "x622",
+      "minimum_api": "2.16",
+      "wasm_parameters": [
+        "i32",
+        "i32",
+        "i32",
+        "i32"
+      ],
+      "wasm_results": [
+        "i32"
+      ],
+      "permission_mask": 1536,
+      "experimental": true,
+      "permission_any_of": 0,
+      "header": "sdk/xapp/x622_xapp.h",
+      "declaration": "int32_t x622_ambe_submit(int32_t handle,uint32_t sequence,const void*,uint32_t);"
+    },
     {
       "name": "audio_mix_status",
       "module": "x622",
@@ -17,6 +105,7 @@
         "i32"
       ],
       "permission_mask": 512,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_audio_mix_status(x622_audio_mix_status_t*, uint32_t bytes);"
@@ -37,6 +126,7 @@
         "i32"
       ],
       "permission_mask": 512,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_audio_resource(const char* path, uint32_t path_bytes, uint32_t offset, uint32_t bytes, uint32_t format, uint32_t sample_rate);"
@@ -53,6 +143,7 @@
         "i32"
       ],
       "permission_mask": 512,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_audio_status(int32_t* values, uint32_t bytes);"
@@ -66,6 +157,7 @@
         "i32"
       ],
       "permission_mask": 512,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_audio_stop(void);"
@@ -82,6 +174,7 @@
         "i32"
       ],
       "permission_mask": 512,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_audio_track(const x622_audio_track_t*, uint32_t bytes);"
@@ -97,6 +190,7 @@
         "i32"
       ],
       "permission_mask": 512,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_audio_volume(int32_t percent);"
@@ -112,6 +206,7 @@
         "i32"
       ],
       "permission_mask": 18,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_backlight(int32_t percent);"
@@ -128,9 +223,75 @@
         "i32"
       ],
       "permission_mask": 8,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_battery(int32_t* values, uint32_t bytes);"
+    },
+    {
+      "name": "ble_beacon_start",
+      "module": "x622",
+      "minimum_api": "2.16",
+      "wasm_parameters": [
+        "i32",
+        "i32"
+      ],
+      "wasm_results": [
+        "i32"
+      ],
+      "permission_mask": 256,
+      "experimental": false,
+      "permission_any_of": 0,
+      "header": "sdk/xapp/x622_xapp.h",
+      "declaration": "int32_t x622_ble_beacon_start(const x622_ble_beacon_config_t*, uint32_t);"
+    },
+    {
+      "name": "ble_beacon_status",
+      "module": "x622",
+      "minimum_api": "2.16",
+      "wasm_parameters": [
+        "i32",
+        "i32"
+      ],
+      "wasm_results": [
+        "i32"
+      ],
+      "permission_mask": 256,
+      "experimental": false,
+      "permission_any_of": 0,
+      "header": "sdk/xapp/x622_xapp.h",
+      "declaration": "int32_t x622_ble_beacon_status(x622_ble_beacon_status_t*, uint32_t);"
+    },
+    {
+      "name": "ble_beacon_stop",
+      "module": "x622",
+      "minimum_api": "2.16",
+      "wasm_parameters": [],
+      "wasm_results": [
+        "i32"
+      ],
+      "permission_mask": 256,
+      "experimental": false,
+      "permission_any_of": 0,
+      "header": "sdk/xapp/x622_xapp.h",
+      "declaration": "int32_t x622_ble_beacon_stop(void);"
+    },
+    {
+      "name": "ble_beacon_update",
+      "module": "x622",
+      "minimum_api": "2.16",
+      "wasm_parameters": [
+        "i32",
+        "i32"
+      ],
+      "wasm_results": [
+        "i32"
+      ],
+      "permission_mask": 256,
+      "experimental": false,
+      "permission_any_of": 0,
+      "header": "sdk/xapp/x622_xapp.h",
+      "declaration": "int32_t x622_ble_beacon_update(const void*, uint32_t);"
     },
     {
       "name": "ble_forget",
@@ -141,6 +302,7 @@
         "i32"
       ],
       "permission_mask": 256,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_ble_forget(void);"
@@ -157,6 +319,7 @@
         "i32"
       ],
       "permission_mask": 256,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_ble_gatt_read(void*,uint32_t);"
@@ -173,6 +336,7 @@
         "i32"
       ],
       "permission_mask": 256,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_ble_gatt_start(const x622_ble_gatt_profile_t*,uint32_t);"
@@ -189,9 +353,27 @@
         "i32"
       ],
       "permission_mask": 256,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_ble_gatt_value(const void*,uint32_t);"
+    },
+    {
+      "name": "ble_open",
+      "module": "x622",
+      "minimum_api": "2.16",
+      "wasm_parameters": [
+        "i32",
+        "i32"
+      ],
+      "wasm_results": [
+        "i32"
+      ],
+      "permission_mask": 256,
+      "experimental": false,
+      "permission_any_of": 0,
+      "header": "sdk/xapp/x622_xapp.h",
+      "declaration": "int32_t x622_ble_open(const x622_ble_config_t* config, uint32_t bytes);"
     },
     {
       "name": "ble_read",
@@ -205,6 +387,7 @@
         "i32"
       ],
       "permission_mask": 256,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_ble_read(void* output, uint32_t capacity);"
@@ -221,6 +404,7 @@
         "i32"
       ],
       "permission_mask": 256,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_ble_send(const void* data, uint32_t bytes);"
@@ -237,6 +421,7 @@
         "i32"
       ],
       "permission_mask": 256,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_ble_sequence(const x622_ble_frame_t* frames, uint32_t bytes);"
@@ -253,6 +438,7 @@
         "i32"
       ],
       "permission_mask": 256,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_ble_start(const x622_ble_profile_t* profile, uint32_t bytes);"
@@ -269,6 +455,7 @@
         "i32"
       ],
       "permission_mask": 256,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_ble_status(x622_ble_status_t* status, uint32_t bytes);"
@@ -282,9 +469,27 @@
         "i32"
       ],
       "permission_mask": 256,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_ble_stop(void);"
+    },
+    {
+      "name": "clock_utc",
+      "module": "x622",
+      "minimum_api": "2.16",
+      "wasm_parameters": [
+        "i32",
+        "i32"
+      ],
+      "wasm_results": [
+        "i32"
+      ],
+      "permission_mask": 0,
+      "experimental": false,
+      "permission_any_of": 0,
+      "header": "sdk/xapp/x622_xapp.h",
+      "declaration": "int32_t x622_clock_utc(x622_clock_utc_t*, uint32_t);"
     },
     {
       "name": "crypto_gcm_open",
@@ -302,6 +507,7 @@
         "i32"
       ],
       "permission_mask": 0,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_crypto_gcm_open(const x622_crypto_gcm_t*,uint32_t, const void*,uint32_t,void*,uint32_t);"
@@ -318,6 +524,7 @@
         "i32"
       ],
       "permission_mask": 0,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_crypto_random(void*,uint32_t);"
@@ -336,6 +543,7 @@
         "i32"
       ],
       "permission_mask": 0,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_crypto_sha256(const void*,uint32_t,void*,uint32_t);"
@@ -352,6 +560,7 @@
         "i32"
       ],
       "permission_mask": 8192,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_datagram_receive(x622_datagram_packet_t*, uint32_t bytes);"
@@ -370,6 +579,7 @@
         "i32"
       ],
       "permission_mask": 8192,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_datagram_send( const uint8_t* destination, uint32_t destination_bytes, const void* payload, uint32_t payload_bytes);"
@@ -386,6 +596,7 @@
         "i32"
       ],
       "permission_mask": 8192,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_datagram_start(const x622_datagram_config_t*, uint32_t bytes);"
@@ -402,6 +613,7 @@
         "i32"
       ],
       "permission_mask": 8192,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_datagram_status(x622_datagram_status_t*, uint32_t bytes);"
@@ -415,6 +627,7 @@
         "i32"
       ],
       "permission_mask": 8192,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_datagram_stop(void);"
@@ -428,6 +641,7 @@
         "i32"
       ],
       "permission_mask": 0,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_exit(void);"
@@ -443,6 +657,7 @@
         "i32"
       ],
       "permission_mask": 4,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_file_close(uint32_t commit);"
@@ -460,6 +675,7 @@
         "i32"
       ],
       "permission_mask": 4,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_file_open(const char* key, uint32_t key_bytes, uint32_t mode);"
@@ -476,6 +692,7 @@
         "i32"
       ],
       "permission_mask": 4,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_file_read(void* output, uint32_t bytes);"
@@ -492,6 +709,7 @@
         "i32"
       ],
       "permission_mask": 4,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_file_write(const void* input, uint32_t bytes);"
@@ -512,6 +730,7 @@
         "i32"
       ],
       "permission_mask": 2,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_gfx_blit( int32_t x, int32_t y, int32_t width, int32_t height, const uint16_t* rgb565, uint32_t bytes);"
@@ -533,6 +752,7 @@
         "i32"
       ],
       "permission_mask": 2,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_gfx_blit_scaled( int32_t x, int32_t y, int32_t width, int32_t height, const uint16_t* rgb565, uint32_t bytes, int32_t scale);"
@@ -553,6 +773,7 @@
         "i32"
       ],
       "permission_mask": 2,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_gfx_raster(uint16_t* target, uint32_t bytes, int32_t width, int32_t height, const x622_raster_command_t* commands, uint32_t command_bytes);"
@@ -575,6 +796,7 @@
         "i32"
       ],
       "permission_mask": 2,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_gfx_resource( const char* path, uint32_t path_bytes, const x622_gfx_command_t* commands, uint32_t command_bytes, int32_t dirty_x, int32_t dirty_y, int32_t dirty_w, int32_t dirty_h);"
@@ -601,6 +823,7 @@
         "i32"
       ],
       "permission_mask": 2,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_gfx_sample(uint16_t* target, uint32_t bytes, int32_t width, int32_t height, const uint16_t* texture, uint32_t texture_bytes, int32_t texture_width, int32_t texture_height, const uint16_t* alternate, uint32_t alternate_bytes, const x622_raster_span_t* spans, uint32_t span_bytes);"
@@ -621,6 +844,7 @@
         "i32"
       ],
       "permission_mask": 2,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_gfx_submit( const x622_gfx_command_t* commands, uint32_t command_bytes, int32_t dirty_x, int32_t dirty_y, int32_t dirty_w, int32_t dirty_h);"
@@ -639,6 +863,7 @@
         "i32"
       ],
       "permission_mask": 96,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_http_get( const char* url, uint32_t url_bytes, char* output, uint32_t output_bytes);"
@@ -655,6 +880,7 @@
         "i32"
       ],
       "permission_mask": 96,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_http_poll(void*,uint32_t);"
@@ -671,6 +897,7 @@
         "i32"
       ],
       "permission_mask": 96,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_http_poll_ex(void*,uint32_t);"
@@ -687,6 +914,7 @@
         "i32"
       ],
       "permission_mask": 96,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_http_request(const x622_http_request_t*,uint32_t);"
@@ -703,6 +931,7 @@
         "i32"
       ],
       "permission_mask": 96,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_http_request_ex(const x622_http_request_ex_t*,uint32_t);"
@@ -716,6 +945,7 @@
         "i32"
       ],
       "permission_mask": 1,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_input_state(void);"
@@ -732,6 +962,7 @@
         "i32"
       ],
       "permission_mask": 0,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_log(const char* text, uint32_t bytes);"
@@ -748,6 +979,7 @@
         "i32"
       ],
       "permission_mask": 512,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_media_levels(uint8_t* values, uint32_t bytes);"
@@ -764,6 +996,7 @@
         "i32"
       ],
       "permission_mask": 608,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_media_play(const char* url, uint32_t bytes);"
@@ -780,6 +1013,7 @@
         "i32"
       ],
       "permission_mask": 512,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_media_status(int32_t* values, uint32_t bytes);"
@@ -793,6 +1027,7 @@
         "i32"
       ],
       "permission_mask": 512,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_media_stop(void);"
@@ -808,6 +1043,7 @@
         "i32"
       ],
       "permission_mask": 512,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_media_volume(int32_t percent);"
@@ -821,6 +1057,7 @@
         "i32"
       ],
       "permission_mask": 0,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_memory_available(void);"
@@ -834,6 +1071,7 @@
         "i64"
       ],
       "permission_mask": 0,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "uint64_t x622_millis(void);"
@@ -850,6 +1088,7 @@
         "i32"
       ],
       "permission_mask": 1024,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_pcm_capture_start(const x622_audio_stream_config_t*, uint32_t);"
@@ -866,6 +1105,7 @@
         "i32"
       ],
       "permission_mask": 512,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_pcm_playback_start(const x622_audio_stream_config_t*, uint32_t);"
@@ -882,6 +1122,7 @@
         "i32"
       ],
       "permission_mask": 1024,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_pcm_read(void*, uint32_t);"
@@ -898,6 +1139,7 @@
         "i32"
       ],
       "permission_mask": 0,
+      "experimental": false,
       "permission_any_of": 1536,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_pcm_status(x622_audio_stream_status_t*, uint32_t);"
@@ -911,6 +1153,7 @@
         "i32"
       ],
       "permission_mask": 0,
+      "experimental": false,
       "permission_any_of": 1536,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_pcm_stop(void);"
@@ -926,6 +1169,7 @@
         "i32"
       ],
       "permission_mask": 512,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_pcm_volume(int32_t percent);"
@@ -942,6 +1186,7 @@
         "i32"
       ],
       "permission_mask": 512,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_pcm_write(const void*, uint32_t);"
@@ -955,6 +1200,7 @@
         "i32"
       ],
       "permission_mask": 2048,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_power_off(void);"
@@ -968,6 +1214,7 @@
         "i32"
       ],
       "permission_mask": 0,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "uint32_t x622_random(void);"
@@ -987,6 +1234,7 @@
         "i32"
       ],
       "permission_mask": 0,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_resource_read( const char* path, uint32_t path_bytes, uint32_t offset, void* output, uint32_t output_bytes);"
@@ -1003,6 +1251,7 @@
         "i32"
       ],
       "permission_mask": 0,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_resource_size( const char* path, uint32_t path_bytes);"
@@ -1019,6 +1268,7 @@
         "i32"
       ],
       "permission_mask": 4096,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_serial_read(void*,uint32_t);"
@@ -1035,6 +1285,7 @@
         "i32"
       ],
       "permission_mask": 4096,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_serial_write(const void*,uint32_t);"
@@ -1055,6 +1306,7 @@
         "i32"
       ],
       "permission_mask": 0,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_signal_ncf(const void* pcm, uint32_t pcm_bytes, const x622_signal_ncf_t*, uint32_t descriptor_bytes, void* output, uint32_t output_bytes);"
@@ -1071,6 +1323,7 @@
         "i32"
       ],
       "permission_mask": 1024,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_signal_vad(const void* pcm, uint32_t pcm_bytes);"
@@ -1086,6 +1339,7 @@
         "i32"
       ],
       "permission_mask": 1024,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_signal_vad_config(int32_t mode);"
@@ -1102,6 +1356,7 @@
         "i32"
       ],
       "permission_mask": 4,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_storage_erase(const char* key, uint32_t key_bytes);"
@@ -1120,6 +1375,7 @@
         "i32"
       ],
       "permission_mask": 4,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_storage_read( const char* key, uint32_t key_bytes, void* output, uint32_t output_bytes);"
@@ -1136,6 +1392,7 @@
         "i32"
       ],
       "permission_mask": 4,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_storage_size(const char* key, uint32_t key_bytes);"
@@ -1154,6 +1411,7 @@
         "i32"
       ],
       "permission_mask": 4,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_storage_write( const char* key, uint32_t key_bytes, const void* data, uint32_t data_bytes);"
@@ -1170,6 +1428,7 @@
         "i32"
       ],
       "permission_mask": 512,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_tracker_control(uint32_t operation, int32_t value);"
@@ -1186,6 +1445,7 @@
         "i32"
       ],
       "permission_mask": 512,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_tracker_load(const x622_tracker_load_t*, uint32_t);"
@@ -1202,6 +1462,7 @@
         "i32"
       ],
       "permission_mask": 512,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_tracker_status(x622_tracker_status_t*, uint32_t);"
@@ -1215,9 +1476,97 @@
         "i32"
       ],
       "permission_mask": 512,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_tracker_stop(void);"
+    },
+    {
+      "name": "udp_close",
+      "module": "x622",
+      "minimum_api": "2.16",
+      "wasm_parameters": [
+        "i32"
+      ],
+      "wasm_results": [
+        "i32"
+      ],
+      "permission_mask": 96,
+      "experimental": false,
+      "permission_any_of": 0,
+      "header": "sdk/xapp/x622_xapp.h",
+      "declaration": "int32_t x622_udp_close(int32_t handle);"
+    },
+    {
+      "name": "udp_open",
+      "module": "x622",
+      "minimum_api": "2.16",
+      "wasm_parameters": [
+        "i32",
+        "i32"
+      ],
+      "wasm_results": [
+        "i32"
+      ],
+      "permission_mask": 96,
+      "experimental": false,
+      "permission_any_of": 0,
+      "header": "sdk/xapp/x622_xapp.h",
+      "declaration": "int32_t x622_udp_open(const x622_udp_config_t*, uint32_t);"
+    },
+    {
+      "name": "udp_read",
+      "module": "x622",
+      "minimum_api": "2.16",
+      "wasm_parameters": [
+        "i32",
+        "i32",
+        "i32"
+      ],
+      "wasm_results": [
+        "i32"
+      ],
+      "permission_mask": 96,
+      "experimental": false,
+      "permission_any_of": 0,
+      "header": "sdk/xapp/x622_xapp.h",
+      "declaration": "int32_t x622_udp_read(int32_t handle,void*,uint32_t);"
+    },
+    {
+      "name": "udp_send",
+      "module": "x622",
+      "minimum_api": "2.16",
+      "wasm_parameters": [
+        "i32",
+        "i32",
+        "i32"
+      ],
+      "wasm_results": [
+        "i32"
+      ],
+      "permission_mask": 96,
+      "experimental": false,
+      "permission_any_of": 0,
+      "header": "sdk/xapp/x622_xapp.h",
+      "declaration": "int32_t x622_udp_send(int32_t handle,const void*,uint32_t);"
+    },
+    {
+      "name": "udp_status",
+      "module": "x622",
+      "minimum_api": "2.16",
+      "wasm_parameters": [
+        "i32",
+        "i32",
+        "i32"
+      ],
+      "wasm_results": [
+        "i32"
+      ],
+      "permission_mask": 96,
+      "experimental": false,
+      "permission_any_of": 0,
+      "header": "sdk/xapp/x622_xapp.h",
+      "declaration": "int32_t x622_udp_status(int32_t handle,x622_net_status_t*,uint32_t);"
     },
     {
       "name": "ui_config",
@@ -1231,6 +1580,7 @@
         "i32"
       ],
       "permission_mask": 2,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_ui.h",
       "declaration": "int32_t x622_ui_config(const x622_ui_config_t*, uint32_t bytes);"
@@ -1248,6 +1598,7 @@
         "i32"
       ],
       "permission_mask": 2,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_ui.h",
       "declaration": "int32_t x622_ui_scene(const x622_ui_node_t*, uint32_t bytes, uint32_t duration_ms);"
@@ -1264,6 +1615,7 @@
         "i32"
       ],
       "permission_mask": 2,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_ui.h",
       "declaration": "int32_t x622_ui_stats(x622_ui_stats_t*, uint32_t bytes);"
@@ -1284,6 +1636,7 @@
         "i32"
       ],
       "permission_mask": 2,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_ui.h",
       "declaration": "int32_t x622_ui_texture(uint32_t slot, uint32_t kind, int32_t w, int32_t h, const void* pixels, uint32_t bytes);"
@@ -1302,6 +1655,7 @@
         "i32"
       ],
       "permission_mask": 32,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_wifi_connect( const char* ssid, uint32_t ssid_bytes, const char* password, uint32_t password_bytes);"
@@ -1318,6 +1672,7 @@
         "i32"
       ],
       "permission_mask": 32,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_wifi_gateway_start(const x622_gateway_config_t*,uint32_t);"
@@ -1334,6 +1689,7 @@
         "i32"
       ],
       "permission_mask": 32,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_wifi_gateway_status(x622_gateway_status_t*,uint32_t);"
@@ -1347,6 +1703,7 @@
         "i32"
       ],
       "permission_mask": 32,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_wifi_gateway_stop(void);"
@@ -1365,6 +1722,7 @@
         "i32"
       ],
       "permission_mask": 32,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_wifi_private_connect(const char*,uint32_t,const char*,uint32_t);"
@@ -1378,6 +1736,7 @@
         "i32"
       ],
       "permission_mask": 32,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_wifi_saved_count(void);"
@@ -1395,6 +1754,7 @@
         "i32"
       ],
       "permission_mask": 32,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_wifi_saved_get( uint32_t index, char* ssid, uint32_t ssid_capacity);"
@@ -1410,6 +1770,7 @@
         "i32"
       ],
       "permission_mask": 32,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_wifi_saved_remove(uint32_t index);"
@@ -1425,6 +1786,7 @@
         "i32"
       ],
       "permission_mask": 32,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_wifi_saved_set_default(uint32_t index);"
@@ -1441,6 +1803,7 @@
         "i32"
       ],
       "permission_mask": 32,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_wifi_scan( x622_wifi_network_t* networks, uint32_t buffer_bytes);"
@@ -1454,6 +1817,7 @@
         "i32"
       ],
       "permission_mask": 32,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_wifi_start(void);"
@@ -1470,6 +1834,7 @@
         "i32"
       ],
       "permission_mask": 32,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_wifi_status(int32_t* values, uint32_t bytes);"
@@ -1483,9 +1848,99 @@
         "i32"
       ],
       "permission_mask": 32,
+      "experimental": false,
       "permission_any_of": 0,
       "header": "sdk/xapp/x622_xapp.h",
       "declaration": "int32_t x622_wifi_stop(void);"
+    },
+    {
+      "name": "ws_close",
+      "module": "x622",
+      "minimum_api": "2.16",
+      "wasm_parameters": [
+        "i32"
+      ],
+      "wasm_results": [
+        "i32"
+      ],
+      "permission_mask": 96,
+      "experimental": false,
+      "permission_any_of": 0,
+      "header": "sdk/xapp/x622_xapp.h",
+      "declaration": "int32_t x622_ws_close(int32_t handle);"
+    },
+    {
+      "name": "ws_open",
+      "module": "x622",
+      "minimum_api": "2.16",
+      "wasm_parameters": [
+        "i32",
+        "i32"
+      ],
+      "wasm_results": [
+        "i32"
+      ],
+      "permission_mask": 96,
+      "experimental": false,
+      "permission_any_of": 0,
+      "header": "sdk/xapp/x622_xapp.h",
+      "declaration": "int32_t x622_ws_open(const x622_ws_config_t*,uint32_t);"
+    },
+    {
+      "name": "ws_read",
+      "module": "x622",
+      "minimum_api": "2.16",
+      "wasm_parameters": [
+        "i32",
+        "i32",
+        "i32"
+      ],
+      "wasm_results": [
+        "i32"
+      ],
+      "permission_mask": 96,
+      "experimental": false,
+      "permission_any_of": 0,
+      "header": "sdk/xapp/x622_xapp.h",
+      "declaration": "int32_t x622_ws_read(int32_t handle,void*,uint32_t);"
+    },
+    {
+      "name": "ws_send",
+      "module": "x622",
+      "minimum_api": "2.16",
+      "wasm_parameters": [
+        "i32",
+        "i32",
+        "i32",
+        "i32",
+        "i32"
+      ],
+      "wasm_results": [
+        "i32"
+      ],
+      "permission_mask": 96,
+      "experimental": false,
+      "permission_any_of": 0,
+      "header": "sdk/xapp/x622_xapp.h",
+      "declaration": "int32_t x622_ws_send(int32_t handle,uint32_t opcode,uint32_t flags,const void*,uint32_t);"
+    },
+    {
+      "name": "ws_status",
+      "module": "x622",
+      "minimum_api": "2.16",
+      "wasm_parameters": [
+        "i32",
+        "i32",
+        "i32"
+      ],
+      "wasm_results": [
+        "i32"
+      ],
+      "permission_mask": 96,
+      "experimental": false,
+      "permission_any_of": 0,
+      "header": "sdk/xapp/x622_xapp.h",
+      "declaration": "int32_t x622_ws_status(int32_t handle,x622_net_status_t*,uint32_t);"
     }
   ],
   "lifecycle": {
@@ -1556,6 +2011,7 @@
     "Header comments define detailed ownership, units and per-call quotas.",
     "Minimum API refers to the import; descriptor extensions can require a newer API.",
     "Static package/profile validation does not execute device services.",
+    "AMBE imports are experimental, disabled by default and not approved for production transmit.",
     "No requirement to import unused random or other unused APIs."
   ]
 }

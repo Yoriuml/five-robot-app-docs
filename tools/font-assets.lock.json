@@ -1,17 +1,17 @@
 {
   "schema_version": 1,
-  "license": "OFL-1.1",
-  "upstream_commit": "165c01b46ea533872e002e0785ff17e44f6d97d8",
+  "family": "HarmonyOS Sans SC",
+  "weight": "Medium",
+  "license": "HarmonyOS-Sans-Fonts-License",
+  "upstream_commit": "4d96c1c7158103732b687e9ea47f4454f6df3ea4",
   "font": {
-    "url": "https://raw.githubusercontent.com/notofonts/noto-cjk/165c01b46ea533872e002e0785ff17e44f6d97d8/Sans/Variable/TTF/Subset/NotoSansSC-VF.ttf",
-    "mirrors": ["https://site.flashbot5.cn/developer/assets/sha256/d68bafcb48a2707749396aa12bbbd833cb70401f3a9a689fd2902c7e0d295964/NotoSansSC-VF.ttf"],
-    "sha256": "d68bafcb48a2707749396aa12bbbd833cb70401f3a9a689fd2902c7e0d295964",
-    "bytes": 17773132
+    "url": "https://raw.githubusercontent.com/openharmony/utils_system_resources/4d96c1c7158103732b687e9ea47f4454f6df3ea4/fonts/HarmonyOS_Sans_SC_Medium.ttf",
+    "sha256": "e32e304d0901fb2e1a4e883859d9bb5661c7682993342c694a1c4d64581cef76",
+    "bytes": 8397084
   },
   "license_file": {
-    "url": "https://raw.githubusercontent.com/notofonts/noto-cjk/165c01b46ea533872e002e0785ff17e44f6d97d8/LICENSE",
-    "mirrors": ["https://site.flashbot5.cn/developer/assets/sha256/6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2/OFL.txt"],
-    "sha256": "6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2",
-    "bytes": 4301
+    "url": "https://raw.githubusercontent.com/openharmony/utils_system_resources/4d96c1c7158103732b687e9ea47f4454f6df3ea4/LICENSE_Fonts",
+    "sha256": "327e0147d4a3ca2d89e81abce45b210576b0f9fe2b29d900f64b58039f12a102",
+    "bytes": 3352
   }
 }

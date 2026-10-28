@@ -59,6 +59,10 @@ class PublicSDK(unittest.TestCase):
         self.assertEqual(minimum_minor('ui_scene'),15)
         self.assertEqual(minimum_minor('exit'),11)
         self.assertEqual(minimum_minor('audio_stop'),3)
+        self.assertEqual(minimum_minor('ble_open'),16)
+        for name in ('ble_beacon_start','clock_utc','udp_open','ws_open','ws_send'):
+            self.assertEqual(minimum_minor(name),16)
+        self.assertEqual(IMPORTS['ble_open'],('ii','i',256))
 
     def test_lock_checksums_and_https(self):
         lock=json.loads((ROOT/'toolchain.lock.json').read_text(encoding='utf-8'))

@@ -116,7 +116,7 @@ def verify_bytes(data: bytes) -> dict:
         raise ValueError("header CRC32 mismatch")
     if hashlib.sha256(data[HEADER_SIZE:]).digest() != h["sha256"]:
         raise ValueError("payload SHA-256 mismatch")
-    if h["flags"] != 1 or h["api_major"] != 2 or h["api_minor"] not in range(1, 16):
+    if h["flags"] != 1 or h["api_major"] != 2 or h["api_minor"] not in range(1, 17):
         raise ValueError("unsupported flags or API version")
     if h["api_minor"] < 6 and h["permissions"] & 8192:
         raise ValueError("ESP-NOW permission requires API 2.6")
@@ -144,6 +144,8 @@ def verify_bytes(data: bytes) -> dict:
         raise ValueError("input_state requires API 2.2")
     if "exit" in h["profile"]["imports"] and h["api_minor"] < 11:
         raise ValueError("exit requires API 2.11")
+    if h["api_minor"] < 16 and any(n in ("ble_open","clock_utc") or n.startswith(("ble_beacon_","udp_","ws_","ambe_")) for n in h["profile"]["imports"]):
+        raise ValueError("BLE / clock / IP client extension requires API 2.16")
     if h["api_minor"] < 15 and any(n.startswith("ui_") for n in h["profile"]["imports"]):
         raise ValueError("native retained UI requires API 2.15")
     if h["api_minor"] < 13 and any(n.startswith("file_") or n == "pcm_volume" for n in h["profile"]["imports"]):
@@ -198,7 +200,7 @@ def command_pack(args: argparse.Namespace) -> None:
     if total_size > MAX_PACKAGE:
         raise ValueError("package exceeds the 8 MiB limit")
     api_major = integer_in(manifest.get("api_major", 2), 2, 2, "api_major")
-    api_minor = integer_in(manifest.get("api_minor", 1), 1, 15, "api_minor")
+    api_minor = integer_in(manifest.get("api_minor", 1), 1, 16, "api_minor")
     permissions = integer_in(manifest.get("permissions", 0), 0, 0xFFFFFFFF, "permissions")
     linear_memory = integer_in(manifest.get("linear_memory", 0), 0, 0, "linear_memory")
     stack = integer_in(manifest.get("stack", 4096), 4096, 8192, "stack")

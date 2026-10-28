@@ -1,6 +1,6 @@
-# XApp API 查阅手册（2.1—2.15）
+# XApp API 查阅手册（2.1—2.16 开发版）
 
-原生动画接口更新：2026-10-10。当前SDK版本2.15；新APP提供退出入口并声明至少minor=11。
+当前工作区 API 2.16 处于验收后的发行准备，尚未冻结或发布；能力和目标固件配对见 [2.16 准备说明](api-2.16-readiness.md)。正式交付以所选发行与目标固件为准；新APP提供退出入口并声明至少minor=11。
 本手册解释参数和行为，不取代 [C 声明](../sdk/xapp/x622_xapp.h)。
 完整结构定义还包括 [BLE](../sdk/xapp/x622_ble.h) 与 [HTTP](../sdk/xapp/x622_http.h)。
 
@@ -23,6 +23,12 @@
 | 2.13 | appfs 私有文件顺序读写/原子覆盖；PCM 播放共享音量读写 |
 | 2.14 | [BLE HID 触摸屏 Feature Report](api-extensions.md)，主触点订阅即可就绪 |
 | 2.15 | [原生缓存场景、动画、局部合成与帧耗时统计](api-extensions.md)，旧图形 ABI 不变 |
+| 2.16 | 版本化BLE会话、独立普通Beacon、有界IP UDP/三路ws://客户端、只读UTC、原生8kHz PCM播放（采集仍16kHz）；AMBE为默认关闭的实验接口，APP HTTP服务未提供 |
+
+实验AMBE见[x622_ambe.h](../sdk/xapp/x622_ambe.h)。`ambe_start/submit/read/status/stop`在显式实验固件中按需工作，
+普通固件返回NOT_SUPPORTED；需要1536音频权限。每次选编码或解码，8 kHz/160点，队列2帧，输入及结果均复制，
+退出回收。READY只表示worker准备好，VERIFIED_VECTORS/VERIFIED_REALTIME仍为零，不得据此启用正式DMR发射。
+这不改变现有16 kHz PCM和音频服务，不代表硬件、声学或实时性验收通过。
 
 固件拒绝 V1/2.0 和高于当前支持范围的版本。导入名为 `x622` 模块内不带 `x622_`
 前缀的名字；SDK 的 C 函数带此前缀。不要手写不匹配的导入签名。
@@ -45,7 +51,7 @@
 | BACKLIGHT | 16 | 背光，另需 DISPLAY_FOREGROUND，因此组合为18 |
 | WIFI_CONNECT | 32 | Wi-Fi 与已保存网络 |
 | NETWORK_HTTP | 64 | HTTP，另需 WIFI_CONNECT，因此组合为96 |
-| BLE_ADVERTISE | 256 | 2.3 BLE 外设/HID，不含 Central 扫描 |
+| BLE_ADVERTISE | 256 | 历史权限名：受限 GATT/HID 外设，不含独立 Beacon、自定义广播数据或 Central 扫描 |
 | AUDIO_PLAYBACK | 512 | 网络/本地音频；`media_play` 另需 Wi-Fi+HTTP，总计608 |
 | AUDIO_CAPTURE | 1024 | 2.7麦克风PCM采集；声明不等于自动启动采音 |
 | POWER_CONTROL | 2048 | 请求系统正常关机 |
@@ -208,6 +214,17 @@ audio state：0空闲、1排队、2播放、3失败。
 
 ## 9. BLE与串口（2.3）
 
+API 2.16普通Beacon使用[独立契约](../sdk/xapp/x622_ble_beacon.h)，
+不是可连接的GATT/HID：start/update/status/stop，0..8 B自有Service Data，控制器接受不等于空口已收到。
+
+API 2.16 配套固件可用 `x622_ble_open(config, bytes)`，完整契约见
+[会话结构](../sdk/xapp/x622_ble_session.h)。`version=1`、`size=236`、`bytes=236`，
+role=STREAM/HID/RECORDS，flags 和队列与旧入口一致；HID 使用显式报告 ID 字段，
+RECORDS 的 definition 通过字节复制装入128 B的 `x622_ble_gatt_values_t`。
+未知版本、大小或角色被拒绝。输入同步复制，不保留 WASM 指针。
+开始后沿用下表的状态、停止、发送与记录读写接口；不要把新结构交给旧 start。
+这些入口要求配套API2.16固件，不能假设旧固件支持。旧220 B配置、24 B帧和36 B状态不变。
+
 | 函数 | 返回/行为 |
 |---|---|
 | `x622_ble_start(profile,bytes)` | 220 B描述，APP专属GATT或HID外设；不能同时持有Wi-Fi |
@@ -221,6 +238,8 @@ audio state：0空闲、1排队、2播放、3失败。
 | `x622_serial_write(data,bytes)` | 单次1—768 B，有界同步写，返回写入数，需处理短写 |
 
 BLE参数、队列、认证和绑定隔离见[2.3说明](api-extensions.md)。当前不是BLE Central接口。
+`ble_send` 和 `ble_sequence` 只在连接后发送数据/报告，不能用于提交广播数据。
+独立普通Beacon仅在2.16本地开发契约中提供；已发布旧版能力及测试边界见[BLE 状态](ble-capabilities.md)。
 当前主头文件声明 APP 业务串口使用原生 USB Serial/JTAG CDC，不使用 K2/K3 引脚。
 APP 没有修改引脚或波特率的 API；安装器传输协议是独立流程，不可把它的串口设置用于推断 APP 通道。
 

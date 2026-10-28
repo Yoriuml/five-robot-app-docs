@@ -32,7 +32,17 @@ def requirements():
 def dependency_directory(cache=None):
     _, _, digest = requirements()
     identity = sys.implementation.cache_tag + '-' + sysconfig.get_platform() + '-' + digest
-    return cache_root(cache) / 'python' / identity
+    root = cache_root(cache)
+    directory = root / 'python' / identity
+    # MSIX hosts may virtualize LOCALAPPDATA into a very deep directory.
+    # Native Python extensions can fail to load past MAX_PATH even when Python
+    # itself can read the file. Keep a compact slot; the full lock digest and
+    # pinned versions remain mandatory in its validated receipt.
+    # The nominal path can look short while MSIX transparently redirects it;
+    # therefore use the compact slot on every Windows host, not a length guess.
+    if os.name == 'nt':
+        directory = root/'py'/hashlib.sha256(identity.encode()).hexdigest()[:24]
+    return directory
 
 
 def activate_cached(cache=None):

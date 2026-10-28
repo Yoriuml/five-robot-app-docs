@@ -2,10 +2,10 @@
 
 ## 本机构建
 
-运行 tools/build.py、tools/validate.py --product、tools/check_product.py、xapp_tool.py inspect 和仓库 tests。记录工具版本、包 SHA-256、WASM 大小、物理内存估计及产品规则结果。build 默认检查最终包的中英文名称、图标、字形与必要生命周期导出；普通 validate 不带 --product 时保留旧包格式兼容性。
+常规只运行 tools/workflow.py build：它复用 build.py 的必要检查并执行 workflow.json 声明的本 APP 测试，不重复运行同义手工检查。独立 validate/inspect 留给接收方、服务器或具体排障。记录工具版本、包 SHA-256、WASM 大小、物理内存估计及产品规则结果。build 默认检查最终包的中英文名称、图标、字形与必要生命周期导出；普通 validate 不带 --product 时保留旧包格式兼容性。
 本仓库只提供静态与 WABT 校验、示例桩测试，不提供私有 WAMR 宿主。不能把 Python 打包或 WABT 成功写成真实运行时通过。
 
-`tools/test_sdk.py` 执行文档/快照、Python 负例、五模板真实编译及独立产品验证、原生 C 状态测试。结果保存到 build/template-check/summary.json。
+每次 APP 开发不运行 SDK 全套回归；SDK 维护者及 CI 在发行时运行。`tools/test_sdk.py` 执行文档/快照、Python 负例、五模板真实编译及独立产品验证、原生 C 状态测试。结果保存到 build/template-check/summary.json。
 
 可选的 `tools/test_sdk_renderer.py` 仅供维护者使用另行授权的本地生产源码，读取实际原生渲染器来检查 SDK C 模板的可见首帧与脏区行为。它不复制/公开私有源码，不执行最终 WASM，也不证明设备音频、显示传输或 C3 性能；没有这些私有源码不影响公开 SDK 的基础验收。
 

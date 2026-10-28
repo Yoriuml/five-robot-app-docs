@@ -14,6 +14,11 @@
 #include "x622_tracker.h"
 #include "x622_http_ex.h"
 #include "x622_ble_gatt.h"
+#include "x622_ble_session.h"
+#include "x622_ble_beacon.h"
+#include "x622_clock.h"
+#include "x622_net.h"
+#include "x622_ambe.h"
 #include "x622_crypto.h"
 #include "x622_gateway.h"
 
@@ -22,7 +27,7 @@ extern "C" {
 #endif
 
 #define X622_XAPP_API_MAJOR 2
-#define X622_XAPP_API_MINOR 15
+#define X622_XAPP_API_MINOR 16
 
 #define X622_OK 0
 #define X622_ERR_INVALID_ARGUMENT (-1)
@@ -348,6 +353,34 @@ X622_IMPORT("tracker_control") int32_t x622_tracker_control(uint32_t operation, 
 X622_IMPORT("tracker_stop") int32_t x622_tracker_stop(void);
 // Returns 216 bytes, nonblocking snapshot; musical rows remain frozen on pause.
 X622_IMPORT("tracker_status") int32_t x622_tracker_status(x622_tracker_status_t*, uint32_t);
+
+// API 2.16: preferred versioned start for new APPs; BLE_ADVERTISE permission.
+// Unknown descriptor version returns VERSION_MISMATCH; size/role/unused fields
+// are checked. Uses the same backend/lease/operations as the legacy imports.
+X622_IMPORT("ble_open") int32_t x622_ble_open(const x622_ble_config_t* config, uint32_t bytes);
+X622_IMPORT("ble_beacon_start") int32_t x622_ble_beacon_start(const x622_ble_beacon_config_t*, uint32_t);
+X622_IMPORT("ble_beacon_update") int32_t x622_ble_beacon_update(const void*, uint32_t);
+X622_IMPORT("ble_beacon_status") int32_t x622_ble_beacon_status(x622_ble_beacon_status_t*, uint32_t);
+X622_IMPORT("ble_beacon_stop") int32_t x622_ble_beacon_stop(void);
+X622_IMPORT("clock_utc") int32_t x622_clock_utc(x622_clock_utc_t*, uint32_t);
+// API 2.16 development: on-demand IP clients; WIFI_CONNECT | NETWORK_HTTP.
+X622_IMPORT("udp_open") int32_t x622_udp_open(const x622_udp_config_t*, uint32_t);
+X622_IMPORT("udp_send") int32_t x622_udp_send(int32_t handle,const void*,uint32_t);
+X622_IMPORT("udp_read") int32_t x622_udp_read(int32_t handle,void*,uint32_t);
+X622_IMPORT("udp_status") int32_t x622_udp_status(int32_t handle,x622_net_status_t*,uint32_t);
+X622_IMPORT("udp_close") int32_t x622_udp_close(int32_t handle);
+X622_IMPORT("ws_open") int32_t x622_ws_open(const x622_ws_config_t*,uint32_t);
+X622_IMPORT("ws_send") int32_t x622_ws_send(int32_t handle,uint32_t opcode,uint32_t flags,const void*,uint32_t);
+X622_IMPORT("ws_read") int32_t x622_ws_read(int32_t handle,void*,uint32_t);
+X622_IMPORT("ws_status") int32_t x622_ws_status(int32_t handle,x622_net_status_t*,uint32_t);
+X622_IMPORT("ws_close") int32_t x622_ws_close(int32_t handle);
+// API 2.16 experimental AMBE, default disabled. Requires both audio permissions.
+// READY does not set VERIFIED_VECTORS/REALTIME; production TX stays disabled.
+X622_IMPORT("ambe_start") int32_t x622_ambe_start(const x622_ambe_config_t*,uint32_t);
+X622_IMPORT("ambe_submit") int32_t x622_ambe_submit(int32_t handle,uint32_t sequence,const void*,uint32_t);
+X622_IMPORT("ambe_read") int32_t x622_ambe_read(int32_t handle,x622_ambe_result_t*,uint32_t);
+X622_IMPORT("ambe_status") int32_t x622_ambe_status(int32_t handle,x622_ambe_status_t*,uint32_t);
+X622_IMPORT("ambe_stop") int32_t x622_ambe_stop(int32_t handle);
 
 // API 2.3: exclusive app-scoped BLE peripheral. Encrypted GATT (mode 1) or
 // standard HID report service (mode 2). Radios must be released for handoff.

@@ -7,6 +7,7 @@ from xapp.wasm_profile import IMPORTS, EXPORTS, PERMISSIONS
 
 def minimum_minor(name):
     # These gates mirror tools/xapp/xapp_tool.py, not guessed capabilities.
+    if name in ('ble_open','clock_utc') or name.startswith(('ble_beacon_','udp_','ws_','ambe_')): return 16
     if name.startswith('ui_'): return 15
     if name.startswith('file_') or name == 'pcm_volume': return 13
     if name == 'exit': return 11
@@ -37,6 +38,7 @@ def generate():
                               wasm_parameters=['i32' if c=='i' else 'i64' for c in params],
                               wasm_results=['i32' if c=='i' else 'i64' for c in result],
                               permission_mask=permissions,
+                              experimental=name.startswith('ambe_'),
                               permission_any_of=1536 if name in ('pcm_stop','pcm_status') else 0,
                               **declarations[name]))
     release=json.loads((ROOT/'sdk-release.json').read_text(encoding='utf-8'))
@@ -57,6 +59,7 @@ def generate():
             'notes':['Header comments define detailed ownership, units and per-call quotas.',
                      'Minimum API refers to the import; descriptor extensions can require a newer API.',
                      'Static package/profile validation does not execute device services.',
+                     'AMBE imports are experimental, disabled by default and not approved for production transmit.',
                      'No requirement to import unused random or other unused APIs.']}
 
 
