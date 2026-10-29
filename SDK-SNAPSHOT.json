@@ -27,7 +27,7 @@
     "tools/xapp/xapp_tool.py": "8953c79fa88914b9cf687ea6bbe1c44b5685f2b0f6201f531779875a253d336d"
   },
   "scope": "All public XApp declarations plus public packaging/validation tools; no device or private host implementation",
-  "sdk_release": "2026.10.28.1",
+  "sdk_release": "2026.10.29.1",
   "api_snapshot_release": "2026.10.28.1",
   "public_tool_notes": "API2.16 release-ready snapshot: BLE session/beacon, IP UDP/WS, UTC, native8k PCM playback only. API<=2.15 imports/layouts remain compatible. AMBE experimental/default OFF, DMR0.1.1 connection testing only: no voice calls. Published availability and matched firmware are defined by the official release index. source_commit/source_dirty describe device-source provenance; files hashes define this public snapshot.",
   "source_dirty": true,
