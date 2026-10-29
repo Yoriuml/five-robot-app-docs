@@ -2,13 +2,13 @@
 
 开发独立 ESP-IDF 原生固件：先读[原生固件 AI 入口与硬件接线](docs/native-firmware-ai.md)，只需把需求连同文档链接发给 AI。该入口生成完整工程和 `.bin`；以下为安装在官方系统内的 XApp SDK。
 
-公开、可独立构建的开发包：**SDK 2026.10.29.1 · API 2.16 · 包格式 1**。设备 ESP32-C3，240×240。新增 BLE 会话、普通 Beacon、IP UDP／WebSocket、UTC 与原生 8 kHz 播放，保留 API 2.15 及以前的 ABI。公开可用性和配套固件以官方索引为准；DMR 0.1.1 仅连接测试，不支持通话，AMBE 实验功能默认关闭。能力边界见 [2.16 发行准备](docs/api-2.16-readiness.md)。
+公开、可独立构建的开发包：**SDK 2026.10.29.2 · API 2.16 · 包格式 1**。设备 ESP32-C3，240×240。新增 BLE 会话、普通 Beacon、IP UDP／WebSocket、UTC 与原生 8 kHz 播放，保留 API 2.15 及以前的 ABI。公开可用性和配套固件以官方索引为准；DMR 0.1.1 仅连接测试，不支持通话，AMBE 实验功能默认关闭。能力边界见 [API 2.16 正式合同](docs/api-2.16.md)。
 
 [GitHub](https://github.com/Yoriuml/five-robot-app-docs) · [Gitee](https://gitee.com/yorium/five-robot-app-docs) · [官方版本索引和 SDK 下载](https://site.flashbot5.com/developer/v1/index.json) · [安装工作台](https://site.flashbot5.com/install)
 
-正式使用时固定索引已发布的同一标签，避免跨发行版拼接头文件、工具和示例。本次工件先冻结，维护方通过最终整机验收后统一发布；原有 2026.10.20.3 标签和下载保持不变。
+正式使用时固定索引已发布的同一标签，避免跨发行版拼接头文件、工具和示例。配套设备须支持 API 2.16；SDK 修订是否上线以官方索引为准。源码、静态检查、网页运行与整机验收分别记录；历史标签和下载保持不变。
 
-本次变化与证据边界见[2026.10.29.1发行说明](docs/release-2026.10.29.1.md)。
+本次变化与证据边界见[2026.10.29.2发行说明](docs/release-2026.10.29.2.md)。
 
 ## 开始
 
