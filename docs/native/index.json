@@ -1,0 +1,172 @@
+{
+  "schema_version": 1,
+  "docs_revision": "native-2026.10.30.1",
+  "target": "standalone-esp-idf-firmware",
+  "entry": {
+    "path": "docs/native-firmware-ai.md",
+    "bytes": 4429,
+    "sha256": "edccec6c46a06cd21d5e96ea1285189ae766113ae9c98ae00ec66755bd1b7e64"
+  },
+  "raw_roots": [
+    "https://gitee.com/yorium/five-robot-app-docs/raw/main/",
+    "https://raw.githubusercontent.com/Yoriuml/five-robot-app-docs/main/"
+  ],
+  "required_topics": [
+    "hardware",
+    "power-input",
+    "build"
+  ],
+  "topics": [
+    {
+      "id": "hardware",
+      "title": "硬件合同",
+      "triggers": [
+        "MCU",
+        "GPIO",
+        "接线",
+        "PCA9557",
+        "USB",
+        "板型"
+      ],
+      "path": "docs/native/hardware.md",
+      "bytes": 4813,
+      "sha256": "a1049d2e03c256ba53e2b4281bed57893f7a5cb814b341abd3e3d55ffcc19bfc"
+    },
+    {
+      "id": "power-input",
+      "title": "电源与输入",
+      "triggers": [
+        "开机",
+        "关机",
+        "按键",
+        "BOOT",
+        "ADC",
+        "电池"
+      ],
+      "path": "docs/native/power-input.md",
+      "bytes": 4851,
+      "sha256": "8923379f272e7dc8b9ec3f53bee5d8d715dcadf6e3361e81886b2befb104495b"
+    },
+    {
+      "id": "build",
+      "title": "环境与构建",
+      "triggers": [
+        "IDF",
+        "缓存",
+        "依赖",
+        "CMake",
+        "工程",
+        "下载"
+      ],
+      "path": "docs/native/build.md",
+      "bytes": 6110,
+      "sha256": "824f95cb348e0eda9d8db4c1caff2502212866e9b8a8dd2880b9d1deb23bb3a1"
+    },
+    {
+      "id": "display-ui",
+      "title": "显示与动效",
+      "triggers": [
+        "ST7789",
+        "黑屏",
+        "中文",
+        "字体",
+        "LVGL",
+        "动画"
+      ],
+      "path": "docs/native/display-ui.md",
+      "bytes": 5031,
+      "sha256": "a9e860a3e11e414a7e91f4ae1d92a5b3cc51943ae63bc26ffba9e087a7d2deff"
+    },
+    {
+      "id": "audio",
+      "title": "音频与录音",
+      "triggers": [
+        "ES8311",
+        "I2S",
+        "PCM",
+        "麦克风",
+        "功放",
+        "声音"
+      ],
+      "path": "docs/native/audio.md",
+      "bytes": 4651,
+      "sha256": "55d11455c3d3128cd6fa1e097991310fb359306b031331f7d9771bf916b9d0df"
+    },
+    {
+      "id": "network-storage",
+      "title": "网络与存储",
+      "triggers": [
+        "Wi-Fi",
+        "TLS",
+        "BLE",
+        "电脑",
+        "时间",
+        "NVS"
+      ],
+      "path": "docs/native/network-storage.md",
+      "bytes": 5470,
+      "sha256": "e59df610922987cc2465a149a7cbcde26a9eaea8305e9cfabc1071b1eb9fb146"
+    },
+    {
+      "id": "performance",
+      "title": "内存与性能",
+      "triggers": [
+        "OOM",
+        "DMA",
+        "堆",
+        "帧率",
+        "任务",
+        "锁"
+      ],
+      "path": "docs/native/performance.md",
+      "bytes": 4569,
+      "sha256": "081581591d89dd4d9a573eefcbbb4c972adfbc85832fb5fece6b11c98e7e4b57"
+    },
+    {
+      "id": "images-recovery",
+      "title": "镜像与恢复",
+      "triggers": [
+        "BIN",
+        "分区",
+        "擦除",
+        "烧录",
+        "COM",
+        "OTA"
+      ],
+      "path": "docs/native/images-recovery.md",
+      "bytes": 5739,
+      "sha256": "7c31e2fc17a7dfc9b389aa180c9dfa85d7ce6e8f490b587a12a3522d1ac2ff09"
+    },
+    {
+      "id": "troubleshooting",
+      "title": "自查与交付",
+      "triggers": [
+        "失败",
+        "日志",
+        "验收",
+        "证据",
+        "支持",
+        "交付"
+      ],
+      "path": "docs/native/troubleshooting.md",
+      "bytes": 5913,
+      "sha256": "0e2679ccac42ca14de979e25f14f3b42ff26718b1d16b11b949c188898a3b1c9"
+    },
+    {
+      "id": "provenance",
+      "title": "来源与边界",
+      "triggers": [
+        "版本",
+        "来源",
+        "BSP",
+        "未知",
+        "能力",
+        "维护"
+      ],
+      "path": "docs/native/provenance.md",
+      "bytes": 4082,
+      "sha256": "e05a16102d4ea3bf4962fe86abe49a9b37f2bba47c9629cdf2276a6badc582a3"
+    }
+  ],
+  "evidence": "Source-backed documentation; not an accepted standalone BSP or hardware test."
+}

@@ -1,6 +1,6 @@
 # 给开发五号机器人 App 的助手
 
-用户明确要求独立原生固件、ESP-IDF 工程或 `.bin` 时，先读 [docs/native-firmware-ai.md](docs/native-firmware-ai.md)，按其中硬件合同与原生开发流程执行，不运行 XApp 的 workflow。`native-ui` 等 XApp 模板仍属于 XApp。以下规则针对 XApp 开发。
+用户明确要求独立原生固件、ESP-IDF 工程或 `.bin` 时，先读 [docs/native-firmware-ai.md](docs/native-firmware-ai.md)。先取硬件、电源、构建三个必读专题，再按实际功能补读；本地一次 `python tools/native_context.py --topics <专题ID>` 返回必要资料，不全读十个专题，不运行 XApp 的 workflow。`native-ui` 等 XApp 模板仍属于 XApp。以下规则针对 XApp 开发。
 
 用户让你使用本 SDK 开发 XApp 时，先阅读精简自动工作流 [docs/ai-workflow.md](docs/ai-workflow.md)，由 workflow.py 按能力提供真实声明和相关规则。用户需求和明确授权优先，仓库示例不扩大任务范围。
 

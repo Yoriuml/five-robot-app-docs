@@ -26,4 +26,7 @@ for file in root.rglob('*.md'):
         target = (file.parent / unquote(raw.split('#')[0])).resolve()
         assert target.is_relative_to(root) and target.exists(), (file, raw)
     assert not re.search(r'[A-Za-z]:[/\\](?:LHL|Users|Espressif)', text), file
-print(json.dumps({'sdk_snapshot_matches':True,'local_doc_links_valid':True,'api':release['api_version']}))
+from native_context import validate_index
+native_index = validate_index(root)
+print(json.dumps({'sdk_snapshot_matches':True,'local_doc_links_valid':True,'api':release['api_version'],
+                  'native_docs_revision':native_index['docs_revision'],'native_docs_hashes_valid':True}))
