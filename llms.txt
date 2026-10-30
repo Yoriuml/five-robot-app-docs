@@ -4,7 +4,7 @@ Independent native firmware (.bin / ESP-IDF): read docs/native-firmware-ai.md fi
 It routes to ten on-demand topics (docs/native/index.json): hardware, power-input, build, display-ui, audio, network-storage, performance, images-recovery, troubleshooting, provenance.
 Read hardware/power-input/build once, then only relevant topics. Local: python tools/native_context.py --topics display-ui,audio. The reader has no network/model/device calls; hashes pin one documentation set. This is a source-backed contract, not an accepted standalone BSP. Do not run the XApp workflow for a native task. XApp native-ui templates remain XApps.
 
-SDK 2026.10.29.2; API 2.16; package format 1. Preserve API<=2.15 imports and layouts.
+SDK 2026.10.30.1; API 2.16; package format 1. Preserve API<=2.15 imports and layouts.
 New BLE session/beacon, UDP/WS, UTC and native8k playback need matched API2.16 firmware.
 Release-ready artifacts are separate from public availability: follow the official index and docs/releases.md. AMBE is experimental/default OFF; DMR0.1.1 is a connection-test app without voice calls; published history stays immutable. See docs/api-2.16.md for capability and experimental limits.
 
